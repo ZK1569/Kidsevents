@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}KidsEvents{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link rel="stylesheet" href="{{asset('css/KidsEvents/style.css')}}">
         <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -87,20 +87,13 @@
 
 
         <div class="home_content">
-            <!-- <div class="text">Home Content</div> 
-            <video autoplay preload="auto" muted loop class="video_entete">
-                <source src="img/Astronaut.mp4" type="video/mp4" /> 
-                marche pas
-            </video>-->
+            {% block body %}{% endblock %}
         </div>
-
         
-
-
-
-
-
-
-        {% block body %}{% endblock %}
     </body>
+    
+    <footer>
+        
+    </footer>
+    
 </html>
