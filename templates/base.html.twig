@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}KidsEvents{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        <link rel="stylesheet" href="{{asset('css/KidsEvents/style.css')}}">
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+        <link href="{{asset('img/Kidsevents/K.png')}}" >
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <!-- NavBar -->
+        <div class="sidebar">
+            <div class="logo_content">
+                <div class="logo">
+                    <!-- <i class='bx bxl-sketch'></i>
+                    <div class="logo_name">KidsEvents</div>   -->
+                    <img src="{{asset('img/Kidsevents/logo_kids_events.png')}}" alt="KidsEvents Logo" class="logoKids">
+                </div>
+                <i class='bx bx-menu' id="btn"></i>
+            </div>
+            <ul class="nav_list">
+                <li>
+                    <i class='bx bx-search' ></i>
+                    <input type="text" placeholder="Recherche...">
+                    <span class="tooltip">Recherche</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-grid-alt'></i>
+                        <span class="links_name">Dashboard</span>
+                    </a>
+                    <span class="tooltip">Dashboard</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-user'></i>
+                        <span class="links_name">Utilisateur</span>
+                    </a>
+                    <span class="tooltip">Utilisateur</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bxs-party' ></i>
+                        <span class="links_name">Activiter</span>
+                    </a>
+                    <span class="tooltip">Activiter</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-history' ></i>
+                        <span class="links_name">Historique</span>
+                    </a>
+                    <span class="tooltip">Historique</span>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class='bx bx-phone'></i>
+                        <span class="links_name">Contact</span>
+                    </a>
+                    <span class="tooltip">Contact</span>
+                </li>
+            </ul>
+            <div class="profile_content">
+                <div class="profile">
+                    <div class="profile_details">
+                        <img src="{{asset('img/Kidsevents/femme.jpg')}}" alt="">
+                        <div class="name_job">
+                            <div class="name">Michel Dupont</div>
+                            <div class="job">Pere de famille</div>
+                        </div>
+                    </div>
+                    <i class='bx bx-log-out' id="log_out"></i>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src={{asset('JS/Kidsevents/script.js')}}></script>
+        <!-- End NavBar -->
+
+
+        <div class="home_content">
+            {% block body %}{% endblock %}
+        </div>
+        
+    </body>
+    
+    <footer>
+        
+    </footer>
+    
+</html>
