@@ -50,7 +50,7 @@ class AdminController extends AbstractController
 		if($form->isSubmitted() && $form->isValid()){
 		}
         return $this->render('admin/themes/add.html.twig', [
-			'add' => $form->createView(),
+			'form' => $form->createView(),
 		]);
     }
 
@@ -72,7 +72,7 @@ class AdminController extends AbstractController
 		if($form->isSubmitted() && $form->isValid()){
 		}
 		return $this->render('admin/options/add.html.twig', [
-			'add' => $form->createView(),
+			'form' => $form->createView(),
 		]);
 	}
 
