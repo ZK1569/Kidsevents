@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
+{% endblock %}
+
+
+{% block body %}
+
+	<div class="text-box">
+		<div class="row">
+			<div class="col">
+				<h1>Gérer les themes</h1>
+				{#
+					affichage des messages flash
+					notice est la clé créée dans le contrôleur
+				#}
+				{% for item in app.flashes('notice') %}
+					<p class="alert alert-success">{{ item }}</p>
+				{% endfor %}
+				
+					<p>
+						<a href="{{ url('admin.themes.add') }}" class="btn btn-primary">Ajouter</a>
+					</p>
+				
+				<table class="table">
+					<tr>
+						<th>intitule</th>
+						<th>descriptif</th>
+						<th>  duree  </th>
+						<th>  prix  </th>
+						<th>age enfants</th>
+						<th>nombre d'enfants</th>
+						<th>image</th>
+					</tr>
+					{# results est envoyé par le contrôleur #}
+					{% for themes in results %}
+						<tr>
+							<td>
+								{{ themes.intitule }}
+							</td>
+							<td>
+								{{ themes.descriptif }}
+							</td>
+							<td>
+								{{ themes.duree }} heures
+							</td>
+							<td>
+								{{ themes.prix }} €
+							</td>
+							<td>
+								entre {{ themes.AgeMin }} et {{ themes.AgeMax }} ans
+							</td>
+							<td>
+								de {{ themes.NbenfantMin }} à {{ themes.NbenfantMax }}
+							</td>
+							<td>
+								{{themes.image}}
+							</td>
+							<td>
+								<a href="#" class="btn btn-warning">Modifier</a>
+
+								<a href="#" class="btn btn-danger">Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

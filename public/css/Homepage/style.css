@@ -1,11 +1,12 @@
 .headerImg{
-    min-height: 85vh;
+    height: 100%;
     width: 100%;
     background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url();
+    z-index: 1;
 }
 
 .text-box{
-    width: 90%;
+    width: min-content;
     color: #333;
     position: absolute;
     top: 50%;
@@ -100,7 +101,7 @@ h3{
 
 @media(max-width: 800px){
     .row{
-        flex-direction: column;
+        flex-direction: row;
     }
 }
 

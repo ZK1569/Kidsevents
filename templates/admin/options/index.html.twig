@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
+{% endblock %}
+
+{% block body %}
+	<div class="text-box">
+		<div class="row">
+			<div class="col">
+				<h1>Gestion des Options</h1>
+				{#
+					affichage des messages flash
+					notice est la clé créée dans le contrôleur
+				#}
+				{% for item in app.flashes('notice') %}
+					<p class="alert alert-success">{{ item }}</p>
+				{% endfor %}
+
+					<p>
+						<a href="{{ url('admin.options.add') }}" class="btn btn-primary">Ajouter</a>
+					</p>
+
+				<table class="table table-striped">
+					<tr>
+						<th>intitule</th>
+						<th>descriptif</th>
+						<th>prix</th>
+					</tr>
+					{# results est envoyé par le contrôleur #}
+					{% for options in results2 %}
+						<tr>
+							<td>
+								{{ options.intitule }}
+							</td>
+							<td>
+								{{ options.descriptif }}
+							</td>
+							<td>
+								{{ options.prix }} €
+							</td>
+							<td>
+								<a href="#" class="btn btn-warning">Modifier</a>
+
+								<a href="#" class="btn btn-danger">Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

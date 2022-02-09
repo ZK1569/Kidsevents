@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
+{% endblock %}
+
+{% block body %}
+	<div class="text-box">
+		<div class="row">
+			<div class="col">
+				<h1>Liste des utilisateurs</h1>
+				{#
+					affichage des messages flash
+					notice est la clé créée dans le contrôleur
+				#}
+				{% for item in app.flashes('notice') %}
+					<p class="alert alert-success">{{ item }}</p>
+				{% endfor %}
+
+				<table class="table table-striped">
+					<tr>
+						<th>nom</th>
+						<th>identifiant</th>
+						<th>telephone</th>
+						<th>mail</th>
+						<th>interet</th>
+					</tr>
+					{# results est envoyé par le contrôleur #}
+					{% for users in results3 %}
+						<tr>
+							<td>
+								{{ users.nom }}
+							</td>
+							<td>
+								{{ users.identifiant }}
+							</td>
+							<td>
+								{{ users.telephone }}
+							</td>
+							<td>
+								{{ users.mail }}
+							</td>
+							<td>
+								{{ users.interet }}
+							</td>
+							<td>
+								<a href="#" class="btn btn-warning">Modifier</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

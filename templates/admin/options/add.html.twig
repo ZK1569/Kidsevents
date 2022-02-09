@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
+{% endblock %}
+
+{% block body %}
+	<div class="text-box">
+		<div class="row">
+			<div class="col">
+				<h1>Créer une Option</h1>
+				{# 
+					form : variable envoyée par le contrôleur
+					<form novalidate="novalidate"
+				#}
+				{{ form_start(form, { attr : { 'novalidate' : 'novalidate' } }) }}
+					<p>
+						{{ form_label(form.intitule, 'appelation :') }}
+						{{ form_widget(form.intitule) }}
+					</p>
+					<p>
+						{{ form_label(form.descriptif, 'comment décrire :') }}
+						{{ form_widget(form.descriptif) }}
+					</p>
+					<p>
+						{{ form_label(form.prix, 'coût (en €) :') }}
+						{{ form_widget(form.prix) }}
+					</p>
+						<input type="submit" onclick="{{ url('admin.options.index') }}" class="btn btn-primary" >
+						</a>
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,4 +1,4 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
@@ -7,8 +7,8 @@
 
 {% block body %}
     <header class='headerImg' style="background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url({{ asset('img/Homepage/HomeImg.jpg') }});"></header>
-
-
+{# (le header est chiant les noms des onglets de la sidebar passe pas dessus)
+    <body class='headerImg' style="background-image: url({{ asset('img/Homepage/HomeImg.jpg') }});">#}
     <div class="text-box">
         <h1>KidsEvents</h1>
         <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic possimus nesciunt aliquid assumenda distinctio incidunt?</p>
@@ -41,34 +41,74 @@
     {# Liste des Activité possible #}
     <section class="activite">
         <h1>Nos Activités</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis officiis, autem provident consequuntur pariatur maxime aspernatur dolores architecto numquam aperiam fugit minima aliquam odio laboriosam vero nemo totam! Libero, facilis.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</br> Debitis officiis, autem provident consequuntur pariatur maxime aspernatur dolores architecto numquam aperiam fugit minima aliquam odio laboriosam vero nemo totam! Libero, facilis.</p>
     
         <div class="row">
-            <div class="activCol">
-                <img src="{{asset('img/Homepage/chevalier.jpeg')}}" alt="Chevalier">
-                <div class="layer">
-                    <h3>CHEVALIER</h3>
+        {% for themes in contenu %}
+            {% if themes.id % 5 == 1 %}
+                <div class="activCol">
+                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
+                    <div class="layer">
+                        <h3>{{themes.intitule}}</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="activCol">
-                <img src="{{asset('img/Homepage/princesse.jpeg')}}" alt="Chevalier">
-                <div class="layer">
-                    <h3>PRINCESSE</h3>
+            {% endif %}
+        {% endfor %}
+        </div>    
+        <div class="row">
+        {% for themes in contenu %}
+            {% if themes.id % 5 == 2 %}
+                <div class="activCol">
+                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
+                    <div class="layer">
+                        <h3>{{themes.intitule}}</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="activCol">
-                <img src="{{asset('img/Homepage/pirate.jpg')}}" alt="Chevalier">
-                <div class="layer">
-                    <h3>PIRATE</h3>
+            {% endif %}
+        {% endfor %}
+        </div>    
+        <div class="row">
+        {% for themes in contenu %}
+            {% if themes.id % 5 == 3 %}
+                <div class="activCol">
+                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
+                    <div class="layer">
+                        <h3>{{themes.intitule}}</h3>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
+        {% endfor %}
+        </div>    
+        <div class="row">
+        {% for themes in contenu %}
+            {% if themes.id % 5 == 4 %}
+                <div class="activCol">
+                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
+                    <div class="layer">
+                        <h3>{{themes.intitule}}</h3>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>    
+        <div class="row">
+        {% for themes in contenu %}
+            {% if themes.id % 5 == 0 %}
+                <div class="activCol">
+                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
+                    <div class="layer">
+                        <h3>{{themes.intitule}}</h3>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
         </div>
     </section>
 
     {# Call us #}
     <section class="cta" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url({{ asset('img/Homepage/end.jpg') }});">
         <h1>Contactez nous</h1>
-        <a href="" class='visiteBtn'>CONTACTE</a>
+        <a href="" class='visiteBtn'>CONTACT US</a>
 
     </section>
 

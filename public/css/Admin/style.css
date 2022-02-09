@@ -1,0 +1,32 @@
+
+.text-box{
+    width: 90%;
+    color: #333;
+    position: absolute;
+    text-align: center;
+    background-size: relative;
+    width: 99%;
+    margin-left: 1%;
+    top: 0%;
+    left: 0%;
+    transform: translate(0%, 0%);
+    text-align: center;
+}
+
+.text-box h1{
+    font-size: 62px;
+    background: linear-gradient(70deg,blue 42%,red 58%);
+    background-clip: border-box;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+a{
+    color: black;
+    font-size: 19px;
+  }
+
+.col th{
+    text-align: center;
+    max-width: 50%;
+}
