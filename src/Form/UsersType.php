@@ -18,7 +18,7 @@ class UsersType extends AbstractType
             ->add('telephone')
             ->add('mail')
             ->add('interet')
-            ->add('admin_right')
+            ->add('admin')
         ;
     }
 

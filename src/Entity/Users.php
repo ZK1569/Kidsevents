@@ -40,7 +40,7 @@ class Users
 
     //droit d'accès aux pages admin + seulement admin peut cocher
     #[ORM\Column(type: 'boolean')]
-    private $admin_right;
+    private $admin;
 
     public function getId(): ?int
     {
@@ -144,14 +144,14 @@ class Users
         return $this;
     }
 
-    public function getAdminRight(): ?bool
+    public function getAdmin(): ?bool
     {
-        return $this->admin_right;
+        return $this->admin;
     }
 
-    public function setAdminRight(bool $admin_right): self
+    public function setAdmin(bool $admin): self
     {
-        $this->admin_right = $admin_right;
+        $this->admin = $admin;
 
         return $this;
     }

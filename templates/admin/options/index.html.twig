@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+	<body class='bodyImg' style="background: linear-gradient(90deg,rgba(0,0,255,9),rgba(255,0,0,5));">
+	<a href="{{ url('admin.homepage.index') }}" class="retour">Retour</a>
 	<div class="text-box">
 		<div class="row">
 			<div class="col">
@@ -28,7 +30,7 @@
 						<th>prix</th>
 					</tr>
 					{# results est envoyé par le contrôleur #}
-					{% for options in results2 %}
+					{% for options in results %}
 						<tr>
 							<td>
 								{{ options.intitule }}

@@ -35,8 +35,7 @@ class OptionsType extends AbstractType
                         'message' => "Prix de cette option",
                     ]),
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

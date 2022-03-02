@@ -5,19 +5,18 @@
 {% endblock %}
 
 {% block body %}
-	<body class='bodyImg' style="background-image: url({{ asset('img/Homepage/slime.jpg') }});">
-
+	<body class='bodyImg' style="background: linear-gradient(90deg,rgba(0,0,255,9),rgba(255,0,0,5));">
 
 	<div class="text-box">
 		<div class="row">
 			<div class="col">
 				<h1>Administration</h1>
 				<p>
-					<a href="{{ url('admin.themes.index') }}">Gestion des themes</a>
+					<a class="lien" href="{{ url('admin.themes.index') }}">Gestion des themes</a>
 					<br>
-					<a href="{{ url('admin.options.index') }}">Gestion des options</a>
+					<a class="lien" href="{{ url('admin.options.index') }}">Gestion des options</a>
 					<br>
-					<a href="{{ url('admin.users.index') }}">liste des utilisateurs</a>
+					<a class="lien" href="{{ url('admin.users.index') }}">liste des utilisateurs</a>
 				</p>
 			</div>
 		</div>

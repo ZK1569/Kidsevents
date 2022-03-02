@@ -32,6 +32,7 @@ class Reservations
     private $options;
 
     #[ORM\ManyToMany(targetEntity: Users::class)]
+    #[ORM\JoinColumn(nullable: false)]
     private $user;
 
     public function __construct()

@@ -5,6 +5,8 @@
 {% endblock %}
 
 {% block body %}
+	<body class='bodyImg' style="background: linear-gradient(90deg,rgba(0,0,255,9),rgba(255,0,0,5));">
+	<a href="{{ url('admin.options.index') }}" class="retour">Retour</a>
 	<div class="text-box">
 		<div class="row">
 			<div class="col">
@@ -26,7 +28,7 @@
 						{{ form_label(form.prix, 'coût (en €) :') }}
 						{{ form_widget(form.prix) }}
 					</p>
-						<input type="submit" onclick="{{ url('admin.options.index') }}" class="btn btn-primary" >
+						<input type="submit" class="btn btn-primary" >
 				{{ form_end(form) }}
 			</div>
 		</div>
