@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
+{% endblock %}
+
+{% block body %}
+	<body class='bodyImg' style="background: linear-gradient(90deg,rgba(0,0,255,9),rgba(255,0,0,5));">
+	<div class="text-box">
+		<div class="row">
+			<div class="col">
+				<h1>Liste des utilisateurs</h1>
+				{#
+					affichage des messages flash
+					notice est la clé créée dans le contrôleur
+				#}
+				{% for item in app.flashes('notice') %}
+					<p class="alert alert-success">{{ item }}</p>
+				{% endfor %}
+
+				<table class="table table-striped">
+					<tr>
+						<th>Administrateur</th>
+						<th>nom</th>
+						<th>identifiant</th>
+						<th>telephone</th>
+						<th>mail</th>
+						<th>newsletter</th>
+					</tr>
+					{# results est envoyé par le contrôleur #}
+					{% for users in results %}
+						<tr>
+							<td>
+								<label class="switch">
+								<input type="checkbox" disabled="disabled">
+								{% if users.admin == 1 %}
+								<input type="checkbox" disabled="disabled" checked="checked">
+								{% endif %}
+								
+								<span class="slider"></span>
+								</label>
+							</td>	
+							<td>
+								{{ users.nom }}
+							</td>
+							<td>
+								{{ users.identifiant }}
+							</td>
+							<td>
+								{{ users.telephone }}
+							</td>
+							<td>
+								{{ users.mail }}
+							</td>
+							<td>
+								<label class="switch">
+								<input type="checkbox" disabled="disabled">
+								{% if users.interet == 1 %}
+								<input type="checkbox" disabled="disabled" checked="checked">
+								{% endif %}
+								<span class="slider round">
+								</span>
+								</label>
+							</td>						
+						</tr>
+					{% endfor %}
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

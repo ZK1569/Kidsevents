@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
+{% endblock %}
+
+{% block body %}
+	<body class='bodyImg' style="background: linear-gradient(90deg,rgba(0,0,255,9),rgba(255,0,0,5));">
+
+	<div class="text-box">
+		<div class="row">
+			<div class="col">
+				<h1>Administration</h1>
+				<p>
+					<a class="lien" href="{{ url('admin.themes.index') }}">Gestion des themes</a>
+					<br>
+					<a class="lien" href="{{ url('admin.options.index') }}">Gestion des options</a>
+					<br>
+					<a class="lien" href="{{ url('admin.users.index') }}">liste des utilisateurs</a>
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
