@@ -1,8 +1,7 @@
 .headerImg{
     height: 100%;
     width: 100%;
-    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url();
-    z-index: 1;
+    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url(/img/Homepage/HomeImg.jpg);
 }
 
 .text-box{
