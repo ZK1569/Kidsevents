@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ReservationsRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationsRepository::class)]
@@ -27,19 +25,6 @@ class Reservations
     #[ORM\ManyToOne(targetEntity: Themes::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $theme;
-
-    #[ORM\ManyToMany(targetEntity: Options::class)]
-    private $options;
-
-    #[ORM\ManyToMany(targetEntity: Users::class)]
-    #[ORM\JoinColumn(nullable: false)]
-    private $user;
-
-    public function __construct()
-    {
-        $this->options = new ArrayCollection();
-        $this->user = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -102,54 +87,6 @@ class Reservations
     public function setTheme(?Themes $theme): self
     {
         $this->theme = $theme;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Options[]
-     */
-    public function getOptions(): Collection
-    {
-        return $this->options;
-    }
-
-    public function addOption(Options $option): self
-    {
-        if (!$this->options->contains($option)) {
-            $this->options[] = $option;
-        }
-
-        return $this;
-    }
-
-    public function removeOption(Options $option): self
-    {
-        $this->options->removeElement($option);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Users[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(Users $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(Users $user): self
-    {
-        $this->user->removeElement($user);
 
         return $this;
     }

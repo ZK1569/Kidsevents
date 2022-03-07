@@ -42,9 +42,9 @@
 								{{ options.prix }} €
 							</td>
 							<td>
-								<a href="#" class="btn btn-warning">Modifier</a>
+								<a href="{{url('admin.options.update', {id: options.id} ) }}",  class="btn btn-warning">Modifier</a>
 
-								<a href="#" class="btn btn-danger">Supprimer</a>
+								<a href="{{url('admin.options.remove', {id: options.id} ) }}" class="btn btn-danger">Supprimer</a>
 							</td>
 						</tr>
 					{% endfor %}

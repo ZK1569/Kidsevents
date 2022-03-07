@@ -3,8 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ThemesRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Form\FormTypeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ThemesRepository::class)]

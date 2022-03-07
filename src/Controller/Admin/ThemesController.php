@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Themes;
 use App\Form\ThemesType;
 use App\Repository\ThemesRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ThemesController extends AbstractController
 {
-	public function __construct(private ThemesRepository $themesRepository, private RequestStack $requestStack)
+	public function __construct(private ThemesRepository $themesRepository, private RequestStack $requestStack, private EntityManagerInterface $entityManager)
 	{
 
 	}
@@ -34,16 +35,45 @@ class ThemesController extends AbstractController
     }
 
 #[Route('/themes/add', name: 'admin.themes.add')]
-    public function new(Request $request): Response
-    {
-		$model = new Themes();
-		$form =$this->createForm(ThemesType::class, $model);
-		$form->handleRequest($request);
-		if($form->isSubmitted() && $form->isValid()){
-			$model = $form->getData();
-		}
-        return $this->render('admin/themes/add.html.twig', [
-			'form' => $form->createView(),
+#[Route('/themes/form/{id}', name: 'admin.themes.update')]
+public function form(int $id = null): Response
+{
+	// si l'id est null, une option est ajoutée sinon sera modifié
+	$model = $id ? $this->themes->find($id) : new Themes();
+	$type = Themes::class;
+	$form =$this->createForm($type, $model);
+
+	$form->handleRequest($this->requestStack->getCurrentRequest());
+	if($form->isSubmitted() && $form->isValid()){
+		// $form->getData() holds the submitted values
+		// but, the original `$model` variable has also been updated
+	   $this->entityManager->persist($model);
+	   $this->entityManager->flush();
+
+	   $message = $id ? 'theme créée': 'theme modifiée';
+	   $this->addFlash('notice', $message);
+
+		// ... perform some action, such as saving the model to the database
+
+		return $this->redirectToRoute('admin.themes.index', [
+			'results' => $this->themesRepository->findAll(),
 		]);
-    }
+	}
+	return $this->renderForm('admin/themes/form.html.twig', [
+		'form' => $form,
+	]);
+}
+#[Route('/themes/remove/{id}', name: 'admin.themes.remove')]
+public function remove(int $id):Response{
+	$entity =$this->themesRepository->find($id);
+
+	$this->entityManager->remove($entity);
+	$this->entityManager->flush();
+
+	$this->addFlash('notice', 'option supprimée');
+
+	return $this->redirectToRoute('admin.themes.index', [
+		'results' => $this->themesRepository->findAll(),
+	]);
+}
 }

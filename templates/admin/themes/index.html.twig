@@ -53,15 +53,15 @@
 								entre {{ themes.AgeMin }} et {{ themes.AgeMax }} ans
 							</td>
 							<td>
-								de {{ themes.NbenfantMin }} à {{ themes.NbenfantMax }}
+								de {{ themes.NbenfantMin }} à {{ themes.NbenfantMax }} ans
 							</td>
 							<td>
 								{{themes.image}}
 							</td>
 							<td>
-								<a href="#" class="btn btn-warning">Modifier</a>
+								<a href="{{url('admin.themes.update', {id: themes.id} ) }}",  class="btn btn-warning">Modifier</a>
 
-								<a href="#" class="btn btn-danger">Supprimer</a>
+								<a href="{{url('admin.themes.remove', {id: themes.id} ) }}" class="btn btn-danger">Supprimer</a>
 							</td>
 						</tr>
 					{% endfor %}

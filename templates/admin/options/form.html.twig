@@ -19,14 +19,17 @@
 					<p>
 						{{ form_label(form.intitule, 'appelation :') }}
 						{{ form_widget(form.intitule) }}
+						{{ form_errors(form.intitule) }}
 					</p>
 					<p>
 						{{ form_label(form.descriptif, 'comment décrire :') }}
 						{{ form_widget(form.descriptif) }}
+						{{ form_errors(form.descriptif) }}
 					</p>
 					<p>
 						{{ form_label(form.prix, 'coût (en €) :') }}
 						{{ form_widget(form.prix) }}
+						{{ form_errors(form.prix) }}
 					</p>
 						<input type="submit" class="btn btn-primary" >
 				{{ form_end(form) }}
