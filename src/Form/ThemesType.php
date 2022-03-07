@@ -4,10 +4,14 @@ namespace App\Form;
 
 use App\Entity\Themes;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\GreaterThan;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\LessThan;
+use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 
@@ -15,6 +19,7 @@ class ThemesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        //dump($options);
         $builder
             ->add('intitule', TextType::class, [
                 'constraints' => [
@@ -49,7 +54,9 @@ class ThemesType extends AbstractType
                     new NotBlank([
                         'message' => "Saisir l'intitule",
                     ]),
-                    new LessThan(age_max)
+                    // new LessThan([
+                    //     'value' => 
+                    // ])
                 ],
             ])
             ->add('age_max', TextType::class, [
@@ -57,7 +64,6 @@ class ThemesType extends AbstractType
                     new NotBlank([
                         'message' => "Saisir l'intitule",
                     ]),
-                    new GreaterThan(age_min)
                 ],
             ])
             ->add('nbenfant_min', TextType::class, [
@@ -74,10 +80,20 @@ class ThemesType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('image', TextType::class, [
+            ->add('image', FileType::class, [
+                'data_class' => null,
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Sélectionner une image",
+                    ]),
+                    new Image([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => "Format d'image incorrect",
                     ]),
                 ],
             ])

@@ -7,7 +7,7 @@ use App\Form\ThemesType;
 use App\Repository\ThemesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,14 +20,8 @@ class ThemesController extends AbstractController
 	{
 
 	}
-#[Route('/', name:'admin.homepage.index')]
-	public function index():Response
-	{
-		return $this->render('admin/homepage/index.html.twig');
-	}
-
 	#[Route('/themes', name: 'admin.themes.index')]
-    public function index2(): Response
+    public function index(): Response
     {
         return $this->render('admin/themes/index.html.twig', [
             'results' => $this->themesRepository->findAll(),
@@ -39,12 +33,21 @@ class ThemesController extends AbstractController
 public function form(int $id = null): Response
 {
 	// si l'id est null, une option est ajoutée sinon sera modifié
-	$model = $id ? $this->themes->find($id) : new Themes();
-	$type = Themes::class;
+	$model = $id ? $this->themesRepository->find($id) : new Themes();
+	$type = ThemesType::class;
 	$form =$this->createForm($type, $model);
 
 	$form->handleRequest($this->requestStack->getCurrentRequest());
 	if($form->isSubmitted() && $form->isValid()){
+		// si une image a été sélectionnée
+		if($model->getImage() instanceof UploadedFile){
+			$model->getImage()->move('img/Themes', $model->getImage()->getClientOriginalName());
+			$model->setImage(
+				$model->getImage()->getClientOriginalName()
+			);
+		}
+		
+		//dd($model);
 		// $form->getData() holds the submitted values
 		// but, the original `$model` variable has also been updated
 	   $this->entityManager->persist($model);

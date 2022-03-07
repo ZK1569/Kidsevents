@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ThemesRepository;
 use Symfony\Component\Form\FormTypeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ThemesRepository::class)]
 class Themes
@@ -142,12 +143,12 @@ class Themes
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string|null|UploadedFile
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string|null|UploadedFile $image): self
     {
         $this->image = $image;
 
