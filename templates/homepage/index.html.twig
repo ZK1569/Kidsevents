@@ -1,12 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-<<<<<<< HEAD
 	<link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
 	<link rel="stylesheet" href="{{asset('css/Homepage/tiny-slider.css')}}">
-=======
-    <link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
->>>>>>> 3040d234050fa0525c382c5dec1d65d454662786
     <link rel="stylesheet" href="{{asset('css/Homepage/footer.css')}}">
 {% endblock %}
 
@@ -56,52 +52,16 @@
             {% endfor %}
 		</div>
 	</section>
-
-    {# Add the footer #}
-    {% include "shared/_footer.html.twig" %}
-
-    <footer>
-        <div class="contact-background">
-        <div class="container">
-        <div class="screen">
-            <div class="screen-header">
-            <div class="screen-header-left">
-                <div class="screen-header-button close"></div>
-                <div class="screen-header-button minimize"></div>
-                <div class="screen-header-button maximize"></div>
-            </div>
-            </div>
-            <div class="screen-body">
-            <div class="screen-body-item left">
-                <div class="app-title">
-                <span class="contact-us-title">CONTACT US</span>
-                </div>
-                <div class="app-contact">CONTACT INFO : +62 81 314 928 595</div>
-            </div>
-            <div class="screen-body-item">
-                <div class="app-form">
-                <div class="app-form-group">
-                    <input class="app-form-control" placeholder="NAME" >
-                </div>
-                <div class="app-form-group">
-                    <input class="app-form-control" placeholder="EMAIL">
-                </div>
-                <div class="app-form-group">
-                    <input class="app-form-control" placeholder="CONTACT NO">
-                </div>
-                <div class="app-form-group message">
-                    <input class="app-form-control" placeholder="MESSAGE">
-                </div>
-                <div class="app-form-group buttons">
-                    <button class="app-form-button">SEND</button>
-                </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-</footer>
 {% endblock %}
+
+    {% block footer %}
+        {# Add the footer #}
+        {% include "shared/_footer.html.twig" %}
+    {% endblock %}
+    
+    
+
+
 
 
 {% block javascripts %}
