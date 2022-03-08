@@ -11,7 +11,7 @@ class HomepageController extends AbstractController{
 
     public function __construct(private ThemesRepository $themesRepository)
     {
-        $this->themesRepository->findAll();
+        // $this->themesRepository->findAll();
     }
 
     #[Route('/', name:'homepage.index')]

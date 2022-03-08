@@ -16,17 +16,19 @@ body{
     top: 0;
     left: 0;
     height: 100%;
-    width: 85px;
+    width: 78px;
     background: #11101d;
     padding: 6px 14px;
     transition: all 0.5s ease;
+    z-index: 2;
 }
 
 .sidebar.active{
-    width: fit-content;
+    width: 240px;
+
 }
 
-.sidebar .logo_content .logoKids{
+.sidebar .logo_content .logo{
     color: #fff;
     display: flex;
     height: 50px;
@@ -34,34 +36,13 @@ body{
     align-items: center;
     opacity: 0;
     pointer-events: none;
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-.sidebar .logo_content .logoK{
-    color: #fff;
-    display: flex;
-    height: 50px;
-    margin-left: 15px;
-    margin-top: 7px;
-    width: fit-content;
-    align-items: center;
-    opacity: 1;
-    pointer-events: none;
     transition: all 0.5s ease;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
 }
 
 /*For the logo img */
 .sidebar .logo_content .logo img{
-    position: fixed;
-    top: 0%;
     height: 30  px;
-    width: fit-content;
+    width: 190px;
     object-fit: fill;
     margin-right: 10px;
     display: flex;
@@ -70,21 +51,9 @@ body{
     transition: margin-right 0.5s;
 }
 
-.sidebar.active .logo_content .logoKids{
+.sidebar.active .logo_content .logo{
     opacity: 1;
     pointer-events: none;
-    position: relative;
-    top: 0;
-    left: 0;
-}
-
-.sidebar.active .logo_content .logoK{
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
 }
 
 .logo_content .logo i{
@@ -101,9 +70,8 @@ body{
 .sidebar #btn {
     color: #fff;
     position: absolute;
-    z-index: 2;
-    top: 10px;
-    left: 75%;
+    top: 6px;
+    left: 50%;
     font-size: 20px;
     height: 50px;
     width: 50px;
@@ -124,14 +92,12 @@ body{
     position: relative;
     height: 50px;
     width: 100%;
-    margin: 0 5px ;
     list-style: none;
     line-height: 50px;
 }
 
 .sidebar ul li .tooltip{
     position: absolute;
-    z-index: 99;
     left: 122px;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -150,22 +116,19 @@ body{
 
 .sidebar.active ul li .tooltip{
     display: none;
-    position: absolute;
-    z-index: 99;
 }
 
 .sidebar ul li:hover .tooltip{
     transition: all 0.5s ease;
     opacity: 1;
     top: 50%;
-    position: absolute;
-    z-index: 99;
+
 }
 
 .sidebar ul li input{
     position: absolute;
     height: 100%;
-    width: 90%;
+    width: 100%;
     left: 0;
     top: 0;
     border-radius: 12px;
@@ -301,17 +264,13 @@ body{
 
 .home_content{
     position: absolute;
-    z-index: 1;
     height: 100%;
-    width: calc(100% - 85px);
-    left: 85px;
+    width: calc(100% - 78px);
+    left: 78px;
     transition: all 0.5s ease;
 }
 
 .sidebar.active ~ .home_content{
-    width: calc(100% - 310px);
-    left: 310px;
-}
-.headerImg{
-    z-index: 1;
+    width: calc(100% - 240px);
+    left: 240px;
 }
