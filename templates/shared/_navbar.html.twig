@@ -1,12 +1,10 @@
 <!-- NavBar -->
 <div class="sidebar">
-    <i class='bx bx-menu' id="btn"></i>
     <div class="logo_content">
-            <a href="/">
-            <!-- <i class='bx bxl-sketch'></i>
-            <div class="logo_name">KidsEvents</div>   -->
+        <div class="logo">
             <img src="{{asset('img/Kidsevents/logo_kids_events.png')}}" alt="KidsEvents Logo" class="logoKids">
-            <img src="{{asset('img/Kidsevents/logo/K.png')}}" alt="KidsEvents Logo" class="logoK">
+        </div>
+        <i class='bx bx-menu' id="btn"></i>
     </div>
     <ul class="nav_list">
         <li>
@@ -15,7 +13,7 @@
             <span class="tooltip">Recherche</span>
         </li>
         <li>
-            <a href="{{ url('admin.homepage.index') }}">
+            <a href="{{url  ('admin.homepage.index')}}">
                 <i class='bx bx-grid-alt'></i>
                 <span class="links_name">Dashboard</span>
             </a>
@@ -24,16 +22,23 @@
         <li>
             <a href="#">
                 <i class='bx bx-user'></i>
-                <span class="links_name">Profil</span>
+                <span class="links_name">Utilisateur</span>
             </a>
-            <span class="tooltip">Profil</span>
+            <span class="tooltip">Utilisateur</span>
         </li>
         <li>
             <a href="#">
                 <i class='bx bxs-party' ></i>
-                <span class="links_name">Activitées</span>
+                <span class="links_name">Activiter</span>
             </a>
-            <span class="tooltip">Activitées</span>
+            <span class="tooltip">Activiter</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class='bx bx-history' ></i>
+                <span class="links_name">Historique</span>
+            </a>
+            <span class="tooltip">Historique</span>
         </li>
         <li>
             <a href="#">
