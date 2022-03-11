@@ -1,115 +1,78 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
+	<link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
+	<link rel="stylesheet" href="{{asset('css/Homepage/tiny-slider.css')}}">
+    <link rel="stylesheet" href="{{asset('css/Homepage/footer.css')}}">
 {% endblock %}
 
 
 {% block body %}
-    <header class='headerImg'></header>
-    {#(le header est chiant les noms des onglets de la sidebar passe pas dessus)#}
-    <body class='bg' style="background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url({{ asset('img/Homepage/main.jpg') }});">
-    <div class="text-box">
-        <h1>KidsEvents</h1>
-        <p>Parcourez nos offres afin d'organiser une fête dont votre enfant se souviendra   </p>
+	<header class='headerImg'></header>
 
-        <a href="#" class='visiteBtn'>Visite Us To Know</a>
-    </div>
 
-    <section class='Information'>
-        <h1>Activité proposer</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, maxime?</p>
+	<div class="text-box">
+		<h1>KidsEvents</h1>
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic possimus nesciunt aliquid assumenda distinctio incidunt?</p>
+
+		<a href="#" class='visiteBtn'>Visite Us To Know</a>
+	</div>
+
+	<section class='Information'>
+		<h1>Activité proposer</h1>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, maxime?</p>
+
+
+		{# Info sur la presentation #}
+		<div class="row">
+			<div class="infoCol">
+				<h3>Anniversaire</h3>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id suscipit corrupti soluta nam eligendi at cumque laboriosam omnis ullam a quidem obcaecati atque, aspernatur voluptatibus voluptatum veniam esse, tempore totam.</p>
+			</div>
+			<div class="infoCol">
+				<h3>Fête</h3>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id suscipit corrupti soluta nam eligendi at cumque laboriosam omnis ullam a quidem obcaecati atque, aspernatur voluptatibus voluptatum veniam esse, tempore totam.</p>
+			</div>
+			<div class="infoCol">
+				<h3>Week-end</h3>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id suscipit corrupti soluta nam eligendi at cumque laboriosam omnis ullam a quidem obcaecati atque, aspernatur voluptatibus voluptatum veniam esse, tempore totam.</p>
+			</div>
+		</div>
+	</section>
+
+	{# Liste des Activité possible #}
+	<section class="activite">
+		<h1>Nos Activités</h1>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis officiis, autem provident consequuntur pariatur maxime aspernatur dolores architecto numquam aperiam fugit minima aliquam odio laboriosam vero nemo totam! Libero, facilis.</p>
+
+		<div class="row my-slider">
+ 
+			{% for theme in contenu %}
+                {% include "shared/_themes.html.twig"%}
+            {% endfor %}
+		</div>
+	</section>
+{% endblock %}
+
+    {% block footer %}
+        {# Add the footer #}
+        {% include "shared/_footer.html.twig" %}
+    {% endblock %}
+    
     
 
-        {# Info sur la presentation #}
-        <div class="row">
-            <div class="infoCol">
-                <h3>Anniversaire</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id suscipit corrupti soluta nam eligendi at cumque laboriosam omnis ullam a quidem obcaecati atque, aspernatur voluptatibus voluptatum veniam esse, tempore totam.</p>
-            </div>
-            <div class="infoCol">
-                <h3>Fête</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id suscipit corrupti soluta nam eligendi at cumque laboriosam omnis ullam a quidem obcaecati atque, aspernatur voluptatibus voluptatum veniam esse, tempore totam.</p>
-            </div>
-            <div class="infoCol">
-                <h3>Week-end</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id suscipit corrupti soluta nam eligendi at cumque laboriosam omnis ullam a quidem obcaecati atque, aspernatur voluptatibus voluptatum veniam esse, tempore totam.</p>
-            </div>
-        </div>
-    </section>
 
-    {# Liste des Activité possible #}
-    <section class="activite">
-        <h1>Nos Activités</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</br> Debitis officiis, autem provident consequuntur pariatur maxime aspernatur dolores architecto numquam aperiam fugit minima aliquam odio laboriosam vero nemo totam! Libero, facilis.</p>
-    
-        <div class="row">
-        {% for themes in contenu %}
-            {% if themes.id % 5 == 1 %}
-                <div class="activCol">
-                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
-                    <div class="layer">
-                        <h3>{{themes.intitule}}</h3>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        </div>    
-        <div class="row">
-        {% for themes in contenu %}
-            {% if themes.id % 5 == 2 %}
-                <div class="activCol">
-                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
-                    <div class="layer">
-                        <h3>{{themes.intitule}}</h3>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        </div>    
-        <div class="row">
-        {% for themes in contenu %}
-            {% if themes.id % 5 == 3 %}
-                <div class="activCol">
-                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
-                    <div class="layer">
-                        <h3>{{themes.intitule}}</h3>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        </div>    
-        <div class="row">
-        {% for themes in contenu %}
-            {% if themes.id % 5 == 4 %}
-                <div class="activCol">
-                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
-                    <div class="layer">
-                        <h3>{{themes.intitule}}</h3>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        </div>    
-        <div class="row">
-        {% for themes in contenu %}
-            {% if themes.id % 5 == 0 %}
-                <div class="activCol">
-                    <img src="img/Themes/{{themes.image}}" alt="{{themes.intitule}}">
-                    <div class="layer">
-                        <h3>{{themes.intitule}}</h3>
-                    </div>
-                </div>
-            {% endif %}
-        {% endfor %}
-        </div>
-    </section>
 
-    {# Call us #}
-    <section class="cta" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url({{ asset('img/Homepage/end.jpg') }});">
-        <h1>Contactez nous</h1>
-        <a href="" class='visiteBtn'>CONTACT US</a>
 
-    </section>
+{% block javascripts %}
+	<script src="{{ asset('JS/Homepage/tiny-slider.js') }}"></script>
+	<script>
+        var slider = tns({container: '.my-slider', 
+        items: 3, 
+        slideBy: 'page', 
+        autoplay: true,
+        gutter: 25
 
+        });
+	</script>
 {% endblock %}
