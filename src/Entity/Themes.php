@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ThemesRepository;
-use Symfony\Component\Form\FormTypeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

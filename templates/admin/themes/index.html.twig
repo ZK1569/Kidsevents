@@ -56,7 +56,7 @@
 								de {{ themes.NbenfantMin }} à {{ themes.NbenfantMax }}
 							</td>
 							<td>
-								<img src="{{ asset('img/Themes/' ~ themes.image) }}" alt="">
+								<img src="{{ asset('img/Themes/' ~ themes.image) }}" title="{{themes.image}}">
 							</td>
 							<td>
 								<a href="{{url('admin.themes.update', {id: themes.id} ) }}",  class="btn btn-warning">Modifier</a>

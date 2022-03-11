@@ -46,14 +46,10 @@ public function form(int $id = null): Response
 				$model->getImage()->getClientOriginalName()
 			);
 		}
-		
-		//dd($model);
-		// $form->getData() holds the submitted values
-		// but, the original `$model` variable has also been updated
 	   $this->entityManager->persist($model);
 	   $this->entityManager->flush();
 
-	   $message = $id ? 'theme créée': 'theme modifiée';
+	   $message = $id ? 'theme créé': 'theme modifié';
 	   $this->addFlash('notice', $message);
 
 		// ... perform some action, such as saving the model to the database
@@ -73,7 +69,7 @@ public function remove(int $id):Response{
 	$this->entityManager->remove($entity);
 	$this->entityManager->flush();
 
-	$this->addFlash('notice', 'option supprimée');
+	$this->addFlash('notice', 'theme supprimé');
 
 	return $this->redirectToRoute('admin.themes.index', [
 		'results' => $this->themesRepository->findAll(),

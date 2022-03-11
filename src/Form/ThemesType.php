@@ -5,13 +5,11 @@ namespace App\Form;
 use App\Entity\Themes;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints\LessThan;
-use Symfony\Component\Validator\Constraints\LessThanOrEqual;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 
@@ -28,7 +26,7 @@ class ThemesType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('descriptif', TextType::class, [
+            ->add('descriptif', TextareaType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => "Saisir l'intitule",
@@ -92,15 +90,14 @@ class ThemesType extends AbstractType
                             'image/png',
                             'image/gif',
                             'image/webp',
+                            'image/jpg',
                         ],
                         'mimeTypesMessage' => "Format d'image incorrect",
                     ]),
                 ],
-            ])
-        ;
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
+            ]);
+        }
+   public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Themes::class,

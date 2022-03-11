@@ -39,15 +39,11 @@ class OptionsController extends AbstractController
 
         $form->handleRequest($this->requestStack->getCurrentRequest());
         if($form->isSubmitted() && $form->isValid()){
-            // $form->getData() holds the submitted values
-            // but, the original `$model` variable has also been updated
            $this->entityManager->persist($model);
            $this->entityManager->flush();
 
            $message = $id ? 'Option créée': 'Option modifiée';
            $this->addFlash('notice', $message);
-
-            // ... perform some action, such as saving the model to the database
 
             return $this->redirectToRoute('admin.options.index', [
                 'results' => $this->optionsRepository->findAll(),
