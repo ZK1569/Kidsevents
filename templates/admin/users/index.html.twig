@@ -32,7 +32,7 @@
 						<tr>
 							<td>
 								<label class="switch">
-								<input type="checkbox" disabled="disabled">
+								<input type="checkbox">
 								{% if users.admin == 1 %}
 								<input type="checkbox" disabled="disabled" checked="checked">
 								{% endif %}
@@ -61,7 +61,10 @@
 								<span class="slider round">
 								</span>
 								</label>
-							</td>						
+							</td>
+							<td>
+								<a href="{{url('admin.users.update', {id: users.id} ) }}",  class="btn btn-warning">élever Administrateur</a>
+							</td>
 						</tr>
 					{% endfor %}
 				</table>

@@ -11,14 +11,14 @@ class HomepageController extends AbstractController{
 
     public function __construct(private ThemesRepository $themesRepository)
     {
-        // $this->themesRepository->findAll();
+        //$this->themesRepository->findAll();
     }
 
     #[Route('/', name:'homepage.index')]
     public function index():Response{
 
         return $this->render('homepage/index.html.twig', [
-            'contenu' => $this->themesRepository->findAll(),
+            'contenu' => $this->UsersRepository->findAll(),
         ]);
     }
     
