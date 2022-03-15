@@ -15,11 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends AbstractController
 {
-    
 	public function __construct(private UsersRepository $usersRepository, private RequestStack $requestStack, private EntityManagerInterface $entityManager)
 	{
 
 	}
+	
 #[Route('/users', name: 'admin.users.index')]
 	public function index(): Response
 	{
@@ -36,11 +36,11 @@ class UsersController extends AbstractController
         $form =$this->createForm($type, $model);
 
         $form->handleRequest($this->requestStack->getCurrentRequest());
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted()){
            $this->entityManager->persist($model);
            $this->entityManager->flush();
 
-           $message = 'user administré';
+           $message = 'permissions admin modifiées';
            $this->addFlash('notice', $message);
 
             return $this->redirectToRoute('admin.users.index', [
@@ -48,8 +48,7 @@ class UsersController extends AbstractController
             ]);
         }
         return $this->renderForm('admin/users/form.html.twig', [
-            'results' => $this->usersRepository->findAll(),
             'form' => $form,
         ]);
-	}
+    }
 }
