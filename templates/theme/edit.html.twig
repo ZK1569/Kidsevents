@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% form_theme formView 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
+{% endblock %}
+
+{% block title %}
+    Edition de {{theme.intitule}}
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-5">
+
+        <h1>Edit du Theme {{theme.intitule}}</h1>
+
+        {{form_start(formView)}}
+        {{form_errors(formView)}}
+
+        <div class="row">
+            <div class="col ">
+                {{form_row(formView.intitule)}}
+                {{form_row(formView.descriptif)}}
+                {{form_row(formView.duree)}}
+                {{form_row(formView.prix)}}
+            </div>
+            <div class="col">
+                {# {{form_row(formView.category)}} #}
+                {{form_row(formView.age_min)}}
+                {{form_row(formView.age_max)}}
+                {{form_row(formView.nbenfant_min)}}
+                {{form_row(formView.nbenfant_max)}}
+                {{form_row(formView.image)}}
+
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success">
+            <i class="fas fa-save"></i>
+            Créer le Theme
+        </button>
+
+        {{form_end(formView)}}
+
+    </div>
+
+
+
+    
+{% endblock %}

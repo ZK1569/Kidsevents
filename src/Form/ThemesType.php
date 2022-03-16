@@ -48,16 +48,14 @@ class ThemesType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => "Saisir l'intitule",
-                    ]),
-                    new LessThan(age_max)
+                    ])
                 ],
             ])
             ->add('age_max', TextType::class, [
                 'constraints' => [
                     new NotBlank([
                         'message' => "Saisir l'intitule",
-                    ]),
-                    new GreaterThan(age_min)
+                    ])
                 ],
             ])
             ->add('nbenfant_min', TextType::class, [

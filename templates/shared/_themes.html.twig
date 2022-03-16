@@ -1,6 +1,8 @@
 <div class="activCol">
     <img src="{{asset('img/Themes/' ~ theme.image)}}" alt="{{theme.intitule}}">
-    <div class="layer">
-        <h3>{{theme.intitule | upper}}</h3>
-    </div>
+    <a href="{{url ('theme_show', {'slug':theme.slug} )}}">
+        <div class="layer">
+            <h3>{{theme.intitule | upper}}</h3>
+        </div>
+    </a>
 </div>
