@@ -2,9 +2,7 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('css/Admin/style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/Admin/form.css')}}">
 {% endblock %}
-
 
 {% block body %}
 	<body class='bodyImg' style="background: linear-gradient(90deg,rgba(0,0,255,9),rgba(255,0,0,5));">
@@ -12,7 +10,7 @@
 	<div class="text-box">
 		<div class="row">
 			<div class="col">
-				<h1>Gérer les themes</h1>
+				<h1>Gérer le Theme</h1>
 				{# 
 					form : variable envoyée par le contrôleur
 					<form novalidate="novalidate"
@@ -21,38 +19,47 @@
 					<p>
 						{{ form_label(form.intitule, 'appelation :') }} </br>
 						{{ form_widget(form.intitule) }}
+						{{ form_errors(form.intitule) }}
 					</p>
 					<p>
 						{{ form_label(form.descriptif, 'comment décrire :') }} </br>
 						{{ form_widget(form.descriptif) }}
+						{{ form_errors(form.descriptif) }}
 					</p>
 					<p>
 						{{ form_label(form.duree, 'durée (en h) :') }} </br>
 						{{ form_widget(form.duree) }}
+						{{ form_errors(form.duree) }}
 					</p>
 					<p>
 						{{ form_label(form.prix, 'coût (en €) :') }} </br>
 						{{ form_widget(form.prix) }}
+						{{ form_errors(form.prix) }}
 					</p>
 					<p>
 						{{ form_label(form.age_min, 'age minimal des enfants acceptés :') }} </br>
 						{{ form_widget(form.age_min) }}
+						{{ form_errors(form.age_min) }}
 					</p>
 					<p>
 						{{ form_label(form.age_max, 'age maximal des enfants acceptés :') }} </br>
 						{{ form_widget(form.age_max) }}
+						{{ form_errors(form.age_max) }}
 					</p>
 					<p>
 						{{ form_label(form.nbenfant_min, "nb minimal d'enfants acceptés :") }} </br>
 						{{ form_widget(form.nbenfant_min) }}
+						{{ form_errors(form.nbenfant_min) }}
 					</p>
 					<p>
 						{{ form_label(form.nbenfant_max, "nb maximal d'enfants acceptés :") }} </br>
 						{{ form_widget(form.nbenfant_max) }}
+						{{ form_errors(form.nbenfant_max) }}
 					</p>
 					<p>
 						{{ form_label(form.image, "nom de l'image :") }}
 						{{ form_widget(form.image) }}
+						{{ form_errors(form.image) }}
 					</p>
 					<p>
 						<input type="submit" class="btn btn-info" href="{{ url('admin.themes.index') }}">

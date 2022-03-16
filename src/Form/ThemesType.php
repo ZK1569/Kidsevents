@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
-
+use Symfony\Component\Validator\Constraints\Positive;
 
 class ThemesType extends AbstractType
 {
@@ -30,28 +30,31 @@ class ThemesType extends AbstractType
             ->add('descriptif', TextareaType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir le descriptif",
                     ]),
                 ],
             ])
             ->add('duree', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir une durée",
                     ]),
                 ],
             ])
             ->add('prix', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir un prix",
                     ]),
+                    new Positive([
+                        'message' => "un prix c'est positif bouffon"
+                    ])
                 ],
             ])
             ->add('age_min', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir un age minimum",
                     ]),
                     // new LessThan([
                     //     'value' => 
@@ -61,21 +64,21 @@ class ThemesType extends AbstractType
             ->add('age_max', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir un age maximum",
                     ]),
                 ],
             ])
             ->add('nbenfant_min', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir un nombre d'enfant minimum",
                     ]),
                 ],
             ])
             ->add('nbenfant_max', TextType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Saisir l'intitule",
+                        'message' => "Saisir un nombre d'enfants maximum",
                     ]),
                 ],
             ])
@@ -83,7 +86,7 @@ class ThemesType extends AbstractType
                 'data_class' => null,
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Sélectionner une image",
+                        'message' => "Sélectionnez une image",
                     ]),
                     new Image([
                         'mimeTypes' => [

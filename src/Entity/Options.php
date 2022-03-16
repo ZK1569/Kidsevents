@@ -17,7 +17,7 @@ class Options
     #[ORM\Column(type: 'string', length: 255)]
     private $intitule;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $descriptif;
 
     #[ORM\Column(type: 'float')]
@@ -45,7 +45,7 @@ class Options
         return $this->descriptif;
     }
 
-    public function setDescriptif(string $descriptif): self
+    public function setDescriptif(?string $descriptif): self
     {
         $this->descriptif = $descriptif;
 

@@ -42,7 +42,7 @@ class OptionsController extends AbstractController
            $this->entityManager->persist($model);
            $this->entityManager->flush();
 
-           $message = $id ? 'Option créée': 'Option modifiée';
+           $message = $id ? 'Option modifiée' : 'Option créée';
            $this->addFlash('notice', $message);
 
             return $this->redirectToRoute('admin.options.index', [
