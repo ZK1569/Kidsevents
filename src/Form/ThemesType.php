@@ -85,9 +85,6 @@ class ThemesType extends AbstractType
             ->add('image', FileType::class, [
                 'data_class' => null,
                 'constraints' => [
-                    new NotBlank([
-                        'message' => "Sélectionnez une image",
-                    ]),
                     new Image([
                         'mimeTypes' => [
                             'image/jpeg',
