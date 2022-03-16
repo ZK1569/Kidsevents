@@ -12,6 +12,7 @@
             <input type="text" placeholder="Recherche...">
             <span class="tooltip">Recherche</span>
         </li>
+
         <li>
             <a href="{{url  ('homepage.index')}}">
                 <i class='bx bx-grid-alt'></i>
@@ -19,13 +20,21 @@
             </a>
             <span class="tooltip">Accueil</span>
         </li>
+
+        {# Si la personne est connecté #}
+        {% if is_granted('ROLE_ADMIN') %}
+        
         <li>
             <a href="{{url  ('admin.homepage')}}">
                 <i class='bx bx-user'></i>
                 <span class="links_name">Admin (temp)</span>
             </a>
-            <span class="tooltip">Admin (temp)</span>
+            <span class="tooltip">Admin</span>
         </li>
+
+        {% endif %}
+        
+
         <li>
             <a href="#">
                 <i class='bx bxs-party' ></i>
@@ -33,13 +42,7 @@
             </a>
             <span class="tooltip">Activiter</span>
         </li>
-        <li>
-            <a href="#">
-                <i class='bx bx-history' ></i>
-                <span class="links_name">Historique</span>
-            </a>
-            <span class="tooltip">Historique</span>
-        </li>
+
         <li>
             <a href="#">
                 <i class='bx bx-phone'></i>
@@ -47,19 +50,33 @@
             </a>
             <span class="tooltip">Contact</span>
         </li>
+
+       
+        {# Si c'est un utilisateur connecté #}
+        {% if app.user %}
+        
+            <li>
+                <a href="{{url  ('security_logout')}}">
+                    <i class='bx bx-log-out bx-fade-left-hover' id="log_out"></i>
+                    <span class="links_name">Deconnexion</span>
+                </a>
+                <span class="tooltip">Deconnexion</span>
+            </li>
+            {% else %}
+            <li>
+                <a href="{{url  ('security_login')}}">
+                    <i class='bx bx-log-in ' id="log_in"></i>
+                    <span class="links_name">Connexion</span>
+                </a>
+                <span class="tooltip">Connexion</span>
+            </li>
+        
+        {% endif %}
+
+        
     </ul>
-    <div class="profile_content">
-        <div class="profile">
-            <div class="profile_details">
-                <img src="{{asset('img/Kidsevents/femme.jpg')}}" alt="">
-                <div class="name_job">
-                    <div class="name">Michel Dupont</div>
-                    <div class="job">Pere de famille</div>
-                </div>
-            </div>
-            <i class='bx bx-log-out' id="log_out"></i>
-        </div>
-    </div>
+
+    
 </div>
 <script type="text/javascript" src={{asset('JS/Kidsevents/script.js')}}></script>
 <!-- End NavBar -->
