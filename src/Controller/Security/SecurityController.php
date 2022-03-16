@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Security;
 
 use App\Form\LoginType;
 use Symfony\Component\HttpFoundation\Response;

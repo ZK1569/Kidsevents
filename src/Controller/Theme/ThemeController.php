@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Theme;
 
 use App\Entity\Themes;
 use App\Form\ThemeType;
