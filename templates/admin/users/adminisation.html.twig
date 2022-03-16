@@ -11,9 +11,7 @@
 		<div class="center">
             {{ form_start(form, { attr : { 'novalidate' : 'novalidate' } }) }}
                 <h2>Etes vous sûr de vouloir accorder à {{form_widget(form.identifiant) }} les responsabilités d'Administrateur ? </br> </h2>
-                    <p>
                         {{ form_widget(form.admin) }}
-                    </p>
 	            <input type="submit" class="btn btn-primary">
             {{ form_end(form) }} </br>
         </div>

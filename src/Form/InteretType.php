@@ -12,8 +12,16 @@ class InteretType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('mail')
-            ->add('interet')
+        ->add('mail', TextType::class, [
+            'disabled' => true])
+        ->add('interet', ChoiceType::class, [
+            'expanded' => true,
+            'multiple' => false,
+            'choices'  => [
+                "Oui j'en suis certain" => true,
+                'Non je ne veux pas' => false,
+            ],
+        ]);
         ;
     }
 
