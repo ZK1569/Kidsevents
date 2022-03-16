@@ -22,12 +22,12 @@
         </li>
 
         {# Si la personne est connecté #}
-        {% if app.user %}
+        {% if is_granted('ROLE_ADMIN') %}
         
         <li>
             <a href="{{url ('admin.homepage.index')}}">
                 <i class='bx bx-desktop'></i>
-                <span class="links_name">Admin (temp)</span>
+                <span class="links_name">Admin</span>
             </a>
             <span class="tooltip">Admin</span>
         </li>
