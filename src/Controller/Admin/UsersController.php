@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Users;
+use App\Entity\User;
 use App\Form\AdminType;
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends AbstractController
 {
-	public function __construct(private UsersRepository $usersRepository, private RequestStack $requestStack, private EntityManagerInterface $entityManager)
+	public function __construct(private UserRepository $userRepository, private RequestStack $requestStack, private EntityManagerInterface $entityManager)
 	{
 
 	}
@@ -24,14 +24,14 @@ class UsersController extends AbstractController
 	public function index(): Response
 	{
         return $this->render('admin/users/index.html.twig', [
-            'results' => $this->usersRepository->findAll(),
+            'results' => $this->userRepository->findAll(),
         ]);
 	}
 	#[Route('/users/form/{id}', name: 'admin.users.right')]
     public function form(int $id = null): Response
     {
         // si l'id est null, une option est ajoutée sinon sera modifié
-        $model = $this->usersRepository->find($id);
+        $model = $this->userRepository->find($id);
         $type = AdminType::class;
         $form =$this->createForm($type, $model);
 
@@ -44,7 +44,7 @@ class UsersController extends AbstractController
            $this->addFlash('notice', $message);
 
             return $this->redirectToRoute('admin.users.index', [
-                'results' => $this->usersRepository->findAll(),
+                'results' => $this->userRepository->findAll(),
             ]);
         }
         return $this->renderForm('admin/users/adminisation.html.twig', [

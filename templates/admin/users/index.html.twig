@@ -29,12 +29,12 @@
 						<th>newsletter</th>
 					</tr>
 					{# results est envoyé par le contrôleur #}
-					{% for users in results %}
+					{% for user in results %}
 						<tr>
 							<td>
 								<label class="switch">
 								<input type="checkbox" disabled="disabled">
-								{% if users.admin == 1 %}
+								{% if user.roles == 'ROLE_ADMIN' %}
 								<input type="checkbox" disabled="disabled" checked="checked">
 								{% endif %}
 								
@@ -42,21 +42,21 @@
 								</label>
 							</td>	
 							<td>
-								{{ users.nom }}
+								{{ user.FirstName }}
 							</td>
 							<td>
-								{{ users.identifiant }}
+								{{ user.email }}
 							</td>
 							<td>
-								{{ users.telephone }}
+								{{ user.phone }}
 							</td>
 							<td>
-								{{ users.mail }}
+								{{ user.address }}
 							</td>
 							<td>
 								<label class="switch">
 								<input type="checkbox" disabled="disabled">
-								{% if users.interet == 1 %}
+								{% if user.interest == 1 %}
 								<input type="checkbox" disabled="disabled" checked="checked">
 								{% endif %}
 								<span class="slider round">
@@ -64,7 +64,7 @@
 								</label>
 							</td>
 							<td>
-								<a href="{{url('admin.users.right', {id: users.id} ) }}",  class="btn btn-warning">élever Administrateur</a>
+								<a href="{{url('admin.users.right', {id: user.id} ) }}",  class="btn btn-warning">élever Administrateur</a>
 							</td>
 						</tr>
 					{% endfor %}

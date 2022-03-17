@@ -36,6 +36,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Address;
 
+    #[ORM\Column(type: 'boolean')]
+    private $interest;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -150,6 +153,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setAddress(?string $Address): self
     {
         $this->Address = $Address;
+
+        return $this;
+    }
+
+    public function getInterest(): ?bool
+    {
+        return $this->interest;
+    }
+
+    public function setInterest(bool $interest): self
+    {
+        $this->interest = $interest;
 
         return $this;
     }
