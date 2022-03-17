@@ -29,7 +29,7 @@ class ThemesController extends AbstractController
     }
 
 #[Route('/themes/add', name: 'admin.themes.add')]
-#[Route('/themes/form/{id}', name: 'admin.themes.update')]
+#[Route('/themes/{slug}', name: 'admin.themes.update', priority:-1)]
 public function form(int $id = null): Response
 {
 	// si l'id est null, une option est ajoutée sinon sera modifié

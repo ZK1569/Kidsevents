@@ -14,9 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ThemeController extends AbstractController
 {
-
-
-
     // To show the product (theme)
     #[Route('/{slug}', name: 'theme_show', priority:-1 )]
     public function show($slug, ThemesRepository $themesRepository): Response
