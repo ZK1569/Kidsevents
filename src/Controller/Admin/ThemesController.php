@@ -47,9 +47,13 @@ class ThemesController extends AbstractController
 
 	// TO edit or create the product (theme)
 	#[Route('/admin/theme/create', name:'theme_create')]
-	#[Route('/admin/theme/{id}/edit', name:'theme_edit')]
-	public function edit (int $id = null, SluggerInterface $slugger)
+	#[Route('/admin/theme/{slug}/edit', name:'theme_edit', priority:-1 )]
+	public function edit (int $id = null, SluggerInterface $slugger, $slug, ThemesRepository $themesRepository)
 	{
+        $theme = $themesRepository->findOneBy([
+            'slug' => $slug
+        ]);
+
 		// si l'id est null, une option est ajoutée sinon sera modifié
 		$model = $id ? $this->themesRepository->find($id) : new Themes();
 		$type = ThemesType::class;
@@ -80,7 +84,7 @@ class ThemesController extends AbstractController
 
 		return $this->render('admin/themes/form.html.twig', [
 			'formView' => $formView,
-			'form' => $form
+			'theme' => $theme
 		]);
 }
 

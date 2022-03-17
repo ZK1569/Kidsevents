@@ -60,7 +60,7 @@
 								<img src="{{ asset('img/Themes/' ~ themes.image) }}" title="{{themes.image}}">
 							</td>
 							<td>
-								<a href="{{url('theme_edit', {id: themes.id} ) }}",  class="btn btn-warning">Modifier</a>
+								<a href="{{url('theme_edit', {'slug':themes.slug} ) }}",  class="btn btn-warning">Modifier</a>
 
 								<a href="{{url('admin.themes.remove', {id: themes.id} ) }}" class="btn btn-danger">Supprimer</a>
 							</td>
