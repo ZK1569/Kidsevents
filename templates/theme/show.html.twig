@@ -17,7 +17,7 @@
 
         {% if is_granted('ROLE_ADMIN') %}
         
-            <a href="{{url ('theme_edit', {'id':theme.id} )}}">
+            <a href="{{url ('theme_edit', {'slug':theme.slug} )}}">
                 <button class="btn btn-danger">
                         <i class="fas fa-save"></i>
                         Modifier le Theme

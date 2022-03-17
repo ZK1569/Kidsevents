@@ -47,7 +47,7 @@ class ThemesController extends AbstractController
 
 	// TO edit or create the product (theme)
 	#[Route('/admin/theme/create', name:'theme_create')]
-	#[Route('/admin/theme/{slug}/edit', name:'theme_edit', priority:-1 )]
+	#[Route('/admin/theme/{slug}/edit', name:'theme_edit')]
 	public function edit (int $id = null, SluggerInterface $slugger, $slug, ThemesRepository $themesRepository)
 	{
         $theme = $themesRepository->findOneBy([
