@@ -22,7 +22,7 @@
 				{% endfor %}
 
 					<p>
-						<a href="{{ url('admin.options.add') }}" class="btn btn-primary">Ajouter</a>
+						<a href="{{ url('option_create') }}" class="btn btn-primary">Ajouter</a>
 					</p>
 
 				<table class="table table-striped">
@@ -44,7 +44,7 @@
 								{{ options.prix }} €
 							</td>
 							<td>
-								<a href="{{url('admin.options.update', {id: options.id} ) }}",  class="btn btn-warning">Modifier</a>
+								<a href="{{url('option_edit', {id: options.id} ) }}",  class="btn btn-warning">Modifier</a>
 
 								<a href="{{url('admin.options.remove', {id: options.id} ) }}" class="btn btn-danger">Supprimer</a>
 							</td>

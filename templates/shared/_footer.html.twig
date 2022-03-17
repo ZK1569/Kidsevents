@@ -14,11 +14,11 @@
             <div class="screen-body-item left">
                 <div class="app-title">
                 <span class="contact-us-title">CONTACT US</span>
-                    {% if app.user %}
-                    <a href="{{url('admin.users.interet', {id: app.user.id} ) }}",  class="contact-us-title">Je souhaite être informé(e) des nouveautés</a>
-                    {% endif %}
                 </div>
                 <div class="app-contact">CONTACT INFO : +62 81 314 928 595</div>
+                    {% if app.user %}
+                    <a href="{{url('admin.users.interet', {id: app.user.id} ) }}",  class="app-form-button">Je souhaite être informé(e) des nouveautés</a>
+                    {% endif %}
             </div>
             <div class="screen-body-item">
                 <div class="app-form">
