@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[Route('/admin')]
+
 class ThemesController extends AbstractController
 {
 	public function __construct(private ThemesRepository $themesRepository, private RequestStack $requestStack, private EntityManagerInterface $entityManager)
@@ -83,7 +85,7 @@ class ThemesController extends AbstractController
 		]);
 }
 
-	#[Route('/themes/remove/{id}', name: 'admin.themes.remove')]
+	#[Route('/theme/remove/{id}', name: 'admin.themes.remove')]
 	public function remove(int $id):Response{
 		$entity =$this->themesRepository->find($id);
 

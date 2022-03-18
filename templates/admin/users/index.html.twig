@@ -8,68 +8,66 @@
 {% block body %}
 	<body class='bodyImg'>
 	<div class="text-box">
-		<div class="row">
-			<div class="col">
-				<h1>Liste des utilisateurs</h1>
-				{#
-					affichage des messages flash
-					notice est la clé créée dans le contrôleur
-				#}
-				{% for item in app.flashes('notice') %}
-					<p class="alert alert-success">{{ item }}</p>
-				{% endfor %}
+		<h1>Liste des utilisateurs</h1>
+		{#
+			affichage des messages flash
+			notice est la clé créée dans le contrôleur
+		#}
+		{% for item in app.flashes('notice') %}
+			<p class="alert alert-success">{{ item }}</p>
+		{% endfor %}
 
-				<table class="table table-striped">
-					<tr>
-						<th>Administrateur</th>
-						<th>nom</th>
-						<th>identifiant</th>
-						<th>telephone</th>
-						<th>mail</th>
-						<th>newsletter</th>
-					</tr>
-					{# results est envoyé par le contrôleur #}
-					{% for user in results %}
-						<tr>
-							<td>
-								<label class="switch">
-								<input type="checkbox" disabled="disabled">
-								{% if user.roles == 'ROLE_ADMIN' %}
-								<input type="checkbox" disabled="disabled" checked="checked">
-								{% endif %}
-								
-								<span class="slider"></span>
-								</label>
-							</td>	
-							<td>
-								{{ user.FirstName }}
-							</td>
-							<td>
-								{{ user.email }}
-							</td>
-							<td>
-								{{ user.phone }}
-							</td>
-							<td>
-								{{ user.address }}
-							</td>
-							<td>
-								<label class="switch">
-								<input type="checkbox" disabled="disabled">
-								{% if user.interest == 1 %}
-								<input type="checkbox" disabled="disabled" checked="checked">
-								{% endif %}
-								<span class="slider round">
-								</span>
-								</label>
-							</td>
-							<td>
-								<a href="{{url('admin.users.right', {id: user.id} ) }}",  class="btn btn-warning">élever Administrateur</a>
-							</td>
-						</tr>
-					{% endfor %}
-				</table>
-			</div>
-		</div>
+		<table class="table table-striped">
+			<tr>
+				<th>Administrateur</th>
+				<th>nom</th>
+				<th>Email</th>
+				<th>telephone</th>
+				<th>address</th>
+				<th>newsletter</th>
+			</tr>
+			{# results est envoyé par le contrôleur #}
+			{% for user in results %}
+				<tr>
+					<td>
+						<label class="switch">
+						{% if user.roles is same as('["ROLE_USER"]') %}
+							<input type="checkbox" disabled="disabled" checked="checked">
+						{% endif %}
+						
+						{% if user.roles == ('ROLE_ADMIN') %}
+							<input type="checkbox" disabled="disabled">
+						{% endif %}
+						<span class="slider"></span>
+						</label>
+					</td>	
+					<td>
+						{{ user.LastName }}
+					</td>
+					<td>
+						{{ user.email }}
+					</td>
+					<td>
+						{{ user.phone }}
+					</td>
+					<td>
+						{{ user.address }}
+					</td>
+					<td>
+						<label class="switch">
+						<input type="checkbox" disabled="disabled">
+						{% if user.interest == 1 %}
+						<input type="checkbox" disabled="disabled" checked="checked">
+						{% endif %}
+						<span class="slider round">
+						</span>
+						</label>
+					</td>
+					<td>
+						<a href="{{url('admin.users.right', {id: user.id} ) }}",  class="btn btn-warning">élever Administrateur</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
 	</div>
 {% endblock %}

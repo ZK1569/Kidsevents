@@ -23,6 +23,9 @@ class Options
     #[ORM\Column(type: 'float')]
     private $prix;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Options
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
