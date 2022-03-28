@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;  
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/admin')]
 
@@ -28,9 +29,9 @@ class OptionsController extends AbstractController
         ]);
     }
 
-#[Route('/options/form', name: 'admin.options.add')]
-#[Route('/options/form/{id}', name: 'admin.options.update')]
-    public function form(int $id = null): Response
+#[Route('/options/create', name: 'option_create')]
+#[Route('/options/form/{id}', name: 'option_edit')]
+    public function form(int $id = null, SluggerInterface $slugger): Response
     {
         // si l'id est null, une option est ajoutée sinon sera modifié
         $model = $id ? $this->optionsRepository->find($id) : new Options();
@@ -39,6 +40,7 @@ class OptionsController extends AbstractController
 
         $form->handleRequest($this->requestStack->getCurrentRequest());
         if($form->isSubmitted() && $form->isValid()){
+			$model->setSlug(strtolower($slugger->slug($model->getIntitule())));
            $this->entityManager->persist($model);
            $this->entityManager->flush();
 
@@ -46,14 +48,18 @@ class OptionsController extends AbstractController
            $this->addFlash('notice', $message);
 
             return $this->redirectToRoute('admin.options.index', [
-                'results' => $this->optionsRepository->findAll(),
+				'slug' => $model->getSlug()
             ]);
         }
-        return $this->renderForm('admin/options/form.html.twig', [
-            'form' => $form,
+        
+		$formView = $form->createView();
+
+        return $this->render('admin/options/form.html.twig', [
+			'formView' => $formView,
         ]);
     }
-    #[Route('/options/remove/{id}', name: 'admin.options.remove')]
+    
+#[Route('/options/remove/{id}', name: 'admin.options.remove')]
     public function remove(int $id):Response{
         $entity =$this->optionsRepository->find($id);
 

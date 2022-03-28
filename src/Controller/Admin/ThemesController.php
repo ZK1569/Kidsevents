@@ -6,6 +6,8 @@ use App\Entity\Themes;
 use App\Form\ThemesType;
 use App\Repository\ThemesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -21,6 +23,21 @@ class ThemesController extends AbstractController
 	{
 
 	}
+
+	public function postLoad(LifecycleEventArgs $event):void
+	{
+		if($event->getEntity() instanceof Themes){
+			$event->getEntity()->prevImage = $event->getEntity()->getImage();
+		}
+	}
+
+	public function getSubscribedEvents():array
+	{
+		return [
+			Events::postLoad,
+		];
+	}
+	
 	#[Route('/themes', name: 'admin.themes.index')]
     public function index(): Response
     {
@@ -54,6 +71,12 @@ class ThemesController extends AbstractController
 	{
 		// si l'id est null, une option est ajoutée sinon sera modifié
 		$model = $id ? $this->themesRepository->find($id) : new Themes();
+
+		if($id){
+			$model->prevImage = $model->getImage();
+		}
+
+
 		$type = ThemesType::class;
 		$form =$this->createForm($type, $model);
 
@@ -63,17 +86,17 @@ class ThemesController extends AbstractController
 			// si une image a été sélectionnée
 			if($model->getImage() instanceof UploadedFile){
 				$model->getImage()->move('img/Themes', $model->getImage()->getClientOriginalName());
-				$model->setImage(
-					$model->getImage()->getClientOriginalName()
-				);
+				$model->setImage($model->getImage()->getClientOriginalName());
+			} else {
+				$model->setImage($model->prevImage);
 			}
 		$this->entityManager->persist($model);
 		$this->entityManager->flush();
 
-		$message = $id ? 'theme créé': 'theme modifié';
+		$message = $id ? 'theme modifié': 'theme créé';
 		$this->addFlash('notice', $message);
 
-			return $this->redirectToRoute('theme_show', [
+			return $this->redirectToRoute('admin.themes.index', [
 				'slug' => $model->getSlug()
 			]);
 		}

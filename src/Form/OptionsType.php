@@ -24,7 +24,9 @@ class OptionsType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('descriptif', TextareaType::class)
+            ->add('descriptif', TextareaType::class, [
+                'required' => false,
+            ])
             ->add('prix', IntegerType::class, [
                 'constraints' => [
                     new NotBlank([

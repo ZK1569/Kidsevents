@@ -18,7 +18,7 @@ class ThemesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        //dump($options);
+        // dump($options);
         $builder
             ->add('intitule', TextType::class, [
                 'constraints' => [
@@ -84,8 +84,12 @@ class ThemesType extends AbstractType
             ])
             ->add('image', FileType::class, [
                 'data_class' => null,
-                'constraints' => [
-                    new Image([
+                'required' => false,
+                'constraints' => $options['data']->getId()
+                    ? []
+                    : [
+                        new NotBlank(),
+                        new Image([
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
