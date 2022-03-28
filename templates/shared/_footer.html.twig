@@ -16,6 +16,11 @@
                 <span class="contact-us-title">CONTACT US</span>
                 </div>
                 <div class="app-contact">CONTACT INFO : +62 81 314 928 595</div>
+                <div class="app-newsletter">
+                    {% if app.user %}
+                    <a href="{{url('admin.users.interet', {id: app.user.id} ) }}",  class="app-form-button">Je souhaite être informé(e) des nouveautés</a>
+                    {% endif %}
+                </div>
             </div>
             <div class="screen-body-item">
                 <form class="app-form" method="POST">

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
+{% endblock %}
+
+{% block title %}Hello ThemeController!{% endblock %}
+
+{% block body %}
+    <div class="container pt-5">
+
+        <div class="example-wrapper">
+            <h1>Hello {{theme.intitule | upper}}! ✅</h1>
+
+            <h2>Il ne faut plus que faire la mise en page</h2>
+        </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        
+            <a href="{{url ('theme_edit', {id: theme.id} )}}">
+                <button class="btn btn-danger">
+                        <i class="fas fa-save"></i>
+                        Modifier le Theme
+                </button>
+            </a>
+
+        {% endif %}
+
+    </div>
+    
+    
+{% endblock %}

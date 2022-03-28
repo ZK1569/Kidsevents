@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/Login/logStyle.css')}}">
+{% endblock %}
+
+
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<div class="center">
+    <h1>Connexion</h1>
+    <form method="post">
+        <div class="txt_field">
+            <label for="inputEmail">Email</label>
+            <span></span>
+            <input type="email" name="login[email]" id="input_email" class="form-control" required autofocus>
+        </div>
+        <div class="txt_field">
+            <label for="inputPassword">Mot de passe</label>
+            <span></span>
+            <input type="password" name="login[password]" id="input_password" class="form-control" required>
+        </div>
+        <input type="submit" value="Connexion">
+        <div class="signup_link">Pas inscrit ? <a href="#">Inscription</a></div>
+        
+    </form>
+</div>
+{% endblock %}

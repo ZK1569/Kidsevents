@@ -10,18 +10,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-	#[Route('/', name:'admin.homepage.index')]
+	#[Route('/', name:'admin.homepage')]
 	public function index():Response
 	{
-		return $this->render('admin/homepage/index.html.twig');
-	}
-
-
-	#[Route('/users', name: 'admin.users.index')]
-	public function index4(): Response
-	{
-        return $this->render('admin/users/index.html.twig', [
-            'results3' => $this->usersRepository->findAll(),
-        ]);
+		return $this->render('admin/homepage.html.twig');
 	}
 }

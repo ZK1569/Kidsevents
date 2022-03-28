@@ -3,8 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ThemesRepository;
-use Symfony\Component\Form\FormTypeInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[ORM\Entity(repositoryClass: ThemesRepository::class)]
 class Themes
@@ -40,6 +40,9 @@ class Themes
 
     #[ORM\Column(type: 'string', length: 255)]
     private $image;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     public function getId(): ?int
     {
@@ -142,14 +145,26 @@ class Themes
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage(): string|null|UploadedFile
     {
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(string|null|UploadedFile $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

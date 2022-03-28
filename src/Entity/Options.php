@@ -17,11 +17,14 @@ class Options
     #[ORM\Column(type: 'string', length: 255)]
     private $intitule;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: true)]
     private $descriptif;
 
     #[ORM\Column(type: 'float')]
     private $prix;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
 
     public function getId(): ?int
     {
@@ -45,7 +48,7 @@ class Options
         return $this->descriptif;
     }
 
-    public function setDescriptif(string $descriptif): self
+    public function setDescriptif(?string $descriptif): self
     {
         $this->descriptif = $descriptif;
 
@@ -60,6 +63,18 @@ class Options
     public function setPrix(float $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

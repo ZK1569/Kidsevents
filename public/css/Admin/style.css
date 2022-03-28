@@ -13,7 +13,7 @@
 
 .text-box h1{
     font-size: 62px;
-    background: linear-gradient(70deg,blue 42%,red 58%);
+    background: linear-gradient(70deg,#029fd2 42%,#b70549 58%);
     background-clip: border-box;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -22,7 +22,7 @@
 a{
     color: black;
     font-size: 19px;
-  }
+}
 
 .col th{
     text-align: center;
@@ -34,9 +34,13 @@ a{
     font-weight: bold;
     padding: 6px 14px;
 }
-.lien{
+
+.liens{
     font-weight: 900;
+    top : 45%;
+    position: relative;
 }
+
 .retour{
     top: 3%;
     left: 2%;
@@ -45,17 +49,25 @@ a{
     font-size: x-large;
     color: blueviolet;
 }
+
 p{
     background-color: linear-gradient(70deg,blue 42%,red 58%);;
 }
+
 .col table{
     position: relative;
     text-align: center;
     margin: auto;
 }
+
 table{
     border-bottom: 9px;
 }
+
+.table img{
+    width: 5rem;
+}
+
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -63,6 +75,7 @@ table{
     width: 60px;
     height: 34px;
 }
+
 .switch input {
     opacity: 0;
     width: 0;
@@ -117,4 +130,9 @@ input:checked + .slider:before {
   
 .slider.round:before {
     border-radius: 50%;
+}
+
+textarea{
+    height: 80px;
+    width: 500px;
 }

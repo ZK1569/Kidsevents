@@ -6,11 +6,14 @@ use App\Entity\Themes;
 use App\Form\ThemesType;
 use App\Repository\ThemesRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Events;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 #[Route('/admin')]
 
@@ -20,60 +23,102 @@ class ThemesController extends AbstractController
 	{
 
 	}
-#[Route('/', name:'admin.homepage.index')]
-	public function index():Response
+
+	public function postLoad(LifecycleEventArgs $event):void
 	{
-		return $this->render('admin/homepage/index.html.twig');
+		if($event->getEntity() instanceof Themes){
+			$event->getEntity()->prevImage = $event->getEntity()->getImage();
+		}
 	}
 
+	public function getSubscribedEvents():array
+	{
+		return [
+			Events::postLoad,
+		];
+	}
+	
 	#[Route('/themes', name: 'admin.themes.index')]
-    public function index2(): Response
+    public function index(): Response
     {
         return $this->render('admin/themes/index.html.twig', [
             'results' => $this->themesRepository->findAll(),
         ]);
     }
+	#[Route('/{slug}', name: 'theme_show', priority:-1 )]
+    public function show($slug, ThemesRepository $themesRepository): Response
+    {
+        // Foud the theme is the DataBase
+        $theme = $themesRepository->findOneBy([
+            'slug' => $slug
+        ]);
 
-#[Route('/themes/add', name: 'admin.themes.add')]
-#[Route('/themes/form/{id}', name: 'admin.themes.update')]
-public function form(int $id = null): Response
-{
-	// si l'id est null, une option est ajoutée sinon sera modifié
-	$model = $id ? $this->themes->find($id) : new Themes();
-	$type = Themes::class;
-	$form =$this->createForm($type, $model);
+        // If here is nothing in the DataBase with the same slug
+        if(!$theme){
+            // Raise an excption (error)
+            throw $this->createNotFoundException("Le produit n'existe pas");
+        }
 
-	$form->handleRequest($this->requestStack->getCurrentRequest());
-	if($form->isSubmitted() && $form->isValid()){
-		// $form->getData() holds the submitted values
-		// but, the original `$model` variable has also been updated
-	   $this->entityManager->persist($model);
-	   $this->entityManager->flush();
+        return $this->render('theme/show.html.twig', [
+            'theme' => $theme
+        ]);
+    }
 
-	   $message = $id ? 'theme créée': 'theme modifiée';
-	   $this->addFlash('notice', $message);
+	// TO edit or create the product (theme)
+	#[Route('/admin/theme/create', name:'theme_create')]
+	#[Route('/admin/theme/{id}/edit', name:'theme_edit')]
+	public function edit (int $id = null, SluggerInterface $slugger)
+	{
+		// si l'id est null, une option est ajoutée sinon sera modifié
+		$model = $id ? $this->themesRepository->find($id) : new Themes();
 
-		// ... perform some action, such as saving the model to the database
+		if($id){
+			$model->prevImage = $model->getImage();
+		}
+
+
+		$type = ThemesType::class;
+		$form =$this->createForm($type, $model);
+
+		$form->handleRequest($this->requestStack->getCurrentRequest());
+		if($form->isSubmitted() && $form->isValid()){
+			$model->setSlug(strtolower($slugger->slug($model->getIntitule())));
+			// si une image a été sélectionnée
+			if($model->getImage() instanceof UploadedFile){
+				$model->getImage()->move('img/Themes', $model->getImage()->getClientOriginalName());
+				$model->setImage($model->getImage()->getClientOriginalName());
+			} else {
+				$model->setImage($model->prevImage);
+			}
+		$this->entityManager->persist($model);
+		$this->entityManager->flush();
+
+		$message = $id ? 'theme modifié': 'theme créé';
+		$this->addFlash('notice', $message);
+
+			return $this->redirectToRoute('admin.themes.index', [
+				'slug' => $model->getSlug()
+			]);
+		}
+
+		$formView = $form->createView();
+
+		return $this->render('admin/themes/form.html.twig', [
+			'formView' => $formView,
+		]);
+}
+
+	#[Route('/theme/remove/{id}', name: 'admin.themes.remove')]
+	public function remove(int $id):Response{
+		$entity =$this->themesRepository->find($id);
+
+		$this->entityManager->remove($entity);
+		$this->entityManager->flush();
+
+		$this->addFlash('notice', 'theme supprimé');
 
 		return $this->redirectToRoute('admin.themes.index', [
 			'results' => $this->themesRepository->findAll(),
 		]);
 	}
-	return $this->renderForm('admin/themes/form.html.twig', [
-		'form' => $form,
-	]);
-}
-#[Route('/themes/remove/{id}', name: 'admin.themes.remove')]
-public function remove(int $id):Response{
-	$entity =$this->themesRepository->find($id);
-
-	$this->entityManager->remove($entity);
-	$this->entityManager->flush();
-
-	$this->addFlash('notice', 'option supprimée');
-
-	return $this->redirectToRoute('admin.themes.index', [
-		'results' => $this->themesRepository->findAll(),
-	]);
-}
 }

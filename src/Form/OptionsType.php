@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Options;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,17 +24,13 @@ class OptionsType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('descriptif', TextType::class, [
-                'constraints' => [
-                    new NotBlank([
-                        'message' => "Saisir un descriptif",
-                    ]),
-                ],
+            ->add('descriptif', TextareaType::class, [
+                'required' => false,
             ])
             ->add('prix', IntegerType::class, [
                 'constraints' => [
                     new NotBlank([
-                        'message' => "Prix de cette option",
+                        'message' => "Saisir un prix",
                     ]),
                     new Positive([
                         'message' => "un prix c'est positif bouffon"
