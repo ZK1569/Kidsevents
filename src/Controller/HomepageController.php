@@ -30,7 +30,7 @@ class HomepageController extends AbstractController{
         if (count($data) > 0) {
             $message = (new Email())
                 ->from($data->get('email'))
-                ->to("cedric.gautier@hotmail.com")
+                ->to("toto@hotmail.com")
                 ->subject("KidsEvent Request from ".$data->get('email'))
                 ->text($data->get('message'))
             ;
