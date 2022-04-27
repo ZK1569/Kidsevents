@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
+{% endblock %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+
+    <div class="container pt-5">
+        <h1>Votre pannier</h1>
+
+        {% for rubrique, messages in app.flashes %}
+            <div class="alert alert-{{rubrique}}">
+                {% for message in messages %}
+                    <span>{{message}}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {# Si il y a des elements dans le tableau, alors affiche le tableau si non affiche un H2 #}
+        {% if items | length > 0 %}
+        
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in items %}
+                        <tr>
+                            <td>{{item.product.name | upper}}</td>
+                            <td>{{item.product.price}}</td>
+                            <td>
+                            {# ReturnToCart=true c'est pour eviter de repasser sur la page produit #}
+                            <a href="{{url("cart_add", {'id':item.product.id})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
+                            {{item.qty}}
+                            <a href="{{url("cart_decrement", {'id':item.product.id})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
+                            </td>
+                            <td>{{item.total}} €</td>
+                            <td><a href="{{url('cart_delete', {'id': item.product.id})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3">Total : </td>
+                        <td colspan="2">{{total}} €</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+
+            <h2>Confirmer votre command en remplissant ce formulaire </h2>
+
+            {{form_start(confirmationForm, {'action': url("purchase_confirm")})}}
+
+            {{form_widget(confirmationForm)}}
+
+            <button type="submit" class="btn btn-success">Je confirme !</button>
+
+            {{form_end(confirmationForm)}}
+
+
+        {% else %}
+            <h2>Le panier est vide</h2>
+        {% endif %}
+    </div>
+{% endblock %}

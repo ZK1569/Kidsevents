@@ -1,32 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('css/Theme/productStyle.css')}}">
 {% endblock %}
 
-{% block title %}Hello ThemeController!{% endblock %}
+{% block title %}Kids Events {{product.name}}{% endblock %}
 
 {% block body %}
-    <div class="container pt-5">
 
-        <div class="example-wrapper">
-            <h1>Hello {{theme.intitule | upper}}! ✅</h1>
 
-            <h2>Il ne faut plus que faire la mise en page</h2>
+        <div class="pres">
+            <div class="main">
+                <img src="{{asset('img/Themes/' ~ product.mainPicture)}}" alt="{{product.name}}">
+                <div class="pres_text">
+                    <h2>{{product.name}}</h2>
+                    <h5>KidsEvents Proposition</h5>
+
+                    <p>Prix de l'activitée : {{product.price}} €</p>
+                    <p class="time">Durée de l'activitée : {{product.time}} heures</p>
+                    <div class="age">
+                        <div class="infoAge">
+                            <h4>Age des enfants : </h4>
+                            <div class="elementMinMax">
+                                <p class="minMax">Min : {{product.ageMin}}</p>
+                                <p class="minMax">Max : {{product.ageMax}}</p>
+                            </div>
+                        </div>
+                        <div class="kidsNumbers">
+                            <h4>Nombre d'enfants : </h4>
+                            <div class="elementMinMax">
+                                <p class="minMax">Min : {{product.minKids}}</p>
+                                <p class="minMax">Max : {{product.maxKids}}</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    
+                    <a href="{{url ('cart_add', {'id':product.id})}}"><button type="button">Ajouter au panier</button></a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{url ('product_edit', {'id':product.id})}}"><button type="button">Modifier</button></a>
+                    {% endif %}
+
+                    {# Pour les flash apres l'ajout au pannier #}
+                    {% for rubrique, messages in app.flashes %}
+                        <div class="infoMassage-{{rubrique}}">
+                            {% for message in messages %}
+                                <span>{{message}}</span>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                
+                    
+                </div>
+                
+            </div>
+            <p class="description"><u>Description</u> :  {{product.shortDescription}}</p>
         </div>
-
-        {% if is_granted('ROLE_ADMIN') %}
-        
-            <a href="{{url ('theme_edit', {id: theme.id} )}}">
-                <button class="btn btn-danger">
-                        <i class="fas fa-save"></i>
-                        Modifier le Theme
-                </button>
-            </a>
-
-        {% endif %}
-
-    </div>
     
     
 {% endblock %}

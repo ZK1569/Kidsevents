@@ -1,0 +1,109 @@
+.pres{
+    width: 100%;
+    padding: 100px 0;
+}
+
+.pres img{
+    height: auto;
+    width: 430px;
+}
+
+.pres_text{
+    width: auto;
+}
+
+.main{
+    width: 1130px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.description{
+    width: 1130px;
+    max-width: 95%;
+    margin: 10px auto;
+    letter-spacing: 1px;
+    line-height: 28px;  
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.pres_text h2{
+    font-size: 75px;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+
+.pres_text h4{
+    letter-spacing: 2px;
+    font-size: 22px;
+    margin: 10px 0;
+    text-transform: capitalize;
+}
+
+.pres_text h5{
+    letter-spacing: 2px;
+    font-size: 22px;
+    margin-bottom: 25px;
+    text-transform: capitalize;
+}
+
+.elementMinMax p{
+    display: inline;
+    margin: 10px;
+}
+
+.pres_text p{
+    letter-spacing: 1px;
+    line-height: 28px;  
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+button{
+    margin-top: 15px;
+    background-color: #f9004d;
+    color: white;
+    text-decoration: none;
+    border: 2px solid black;
+    font-weight: bold;
+    padding: 13px 30px;
+    border-radius: 30px;
+    transition: 0.4s;
+}
+
+button:hover{
+    color: black;
+    background-color: transparent;
+    border: 2px solid black;
+}
+
+.infoMassage-success{
+    background: green;
+    color: white;
+    margin-top: 10px;
+    padding-bottom: 0;
+    padding: 13px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.infoMassage-warning{
+    background: red;
+    color: white;
+    margin-top: 10px;
+    padding-bottom: 0;
+    padding: 13px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 950px) {
+    .main{
+        display: flow-root;
+        
+    }
+}

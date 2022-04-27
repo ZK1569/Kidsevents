@@ -1,0 +1,55 @@
+{% extends "base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
+{% endblock %}
+
+{% block title %}
+    Les commandes
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-5">
+    
+        <h1>Les commandes à venir des utilisateurs</h1>
+
+        {% for rubrique, messages in app.flashes %}
+            <div class="alert alert-{{rubrique}}">
+                {% for message in messages %}
+                    <span>{{message}}</span>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <h3>Les commandes à venir </h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom de la reservation</th>
+                    <th>Adress</th>
+                    <th>Code postale</th>
+                    <th>Ville</th>
+                    <th>Date de reservation</th>
+                    <th>Total</th>
+                </tr>
+            </thead>    
+            <tbody>
+                {% for p in purchases %}
+                    {% if "now"|date("d/m/Y") < p.reserveFor | date('d/m/Y')%}
+                        <tr>
+                            <td>{{p.fullName}}</td>
+                            <td>{{p.address}}</td>
+                            <td>{{p.postalCode}}</td>
+                            <td>{{p.city}}</td>
+                            <td>{{p.reserveFor | date('d/m/Y')}}</td>
+                            <td>{{p.total}} €</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+    
+    </div>
+{% endblock %}

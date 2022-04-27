@@ -275,3 +275,6 @@ body{
     left: 240px;
 }
 
+.nav_list{
+    padding-left: 0;
+}

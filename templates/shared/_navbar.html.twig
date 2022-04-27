@@ -1,82 +1,100 @@
 <!-- NavBar -->
 <div class="sidebar">
-    <div class="logo_content">
-        <div class="logo">
-            <img src="{{asset('img/Kidsevents/logo_kids_events.png')}}" alt="KidsEvents Logo" class="logoKids">
-        </div>
-        <i class='bx bx-menu' id="btn"></i>
-    </div>
-    <ul class="nav_list">
-        <li>
-            <i class='bx bx-search' ></i>
-            <input type="text" placeholder="Recherche...">
-            <span class="tooltip">Recherche</span>
-        </li>
+	<div class="logo_content">
+		<div class="logo">
+			<img src="{{asset('img/Kidsevents/logo_kids_events.png')}}" alt="KidsEvents Logo" class="logoKids">
+		</div>
+		<i class='bx bx-menu' id="btn"></i>
+	</div>
+	<ul class="nav_list">
+		<li>
+			<i class='bx bx-search'></i>
+			<input type="text" placeholder="Recherche...">
+			<span class="tooltip">Recherche</span>
+		</li>
 
-        <li>
-            <a href="{{url  ('homepage.index')}}">
-                <i class='bx bx-grid-alt'></i>
-                <span class="links_name">Accueil</span>
-            </a>
-            <span class="tooltip">Accueil</span>
-        </li>
+		<li>
+			<a href="{{url ('homepage.index')}}">
+				<i class='bx bx-home'></i>
+				<span class="links_name">Accueil</span>
+			</a>
+			<span class="tooltip">Accueil</span>
+		</li>
 
-        {# Si la personne est admin #}
-        {% if is_granted('ROLE_ADMIN') %}
-        
-        <li>
-            <a href="{{url  ('admin.homepage')}}">
-                <i class='bx bx-user'></i>
-                <span class="links_name">Admin (temp)</span>
-            </a>
-            <span class="tooltip">Admin</span>
-        </li>
+		{# Si la personne est connecté #}
+		{% if is_granted('ROLE_ADMIN') %}
 
-        {% endif %}
-        
+			<li>
+				<a href="{{url ('purchase_admin')}}">
+					<i class='bx bx-list-ul'></i>
+					<span class="links_name">Réservation</span>
+				</a>
+				<span class="tooltip">Réservation</span>
+			</li>
 
-        <li>
-            <a href="#">
-                <i class='bx bxs-party' ></i>
-                <span class="links_name">Activiter</span>
-            </a>
-            <span class="tooltip">Activiter</span>
-        </li>
+			<li>
+				<a href="{{url ('product_create')}}">
+					<i class='bx bx-gift'></i>
+					<span class="links_name">Ajouter un Product</span>
+				</a>
+				<span class="tooltip">Product</span>
+			</li>
 
-        <li>
-            <a href="#">
-                <i class='bx bx-phone'></i>
-                <span class="links_name">Contact</span>
-            </a>
-            <span class="tooltip">Contact</span>
-        </li>
+			<li>
+				<a href="{{url ('supplement_create')}}">
+					<i class='bx bx-purchase-tag'></i>
+					<span class="links_name">Ajouter une Option</span>
+				</a>	
+				<span class="tooltip">Supplement</span>
+			</li>
 
-       
-        {# Si c'est un utilisateur connecté #}
-        {% if app.user %}
-        
-            <li>
-                <a href="{{url  ('security_logout')}}">
-                    <i class='bx bx-log-out bx-fade-left-hover' id="log_out"></i>
-                    <span class="links_name">Deconnexion</span>
-                </a>
-                <span class="tooltip">Deconnexion</span>
-            </li>
-            {% else %}
-            <li>
-                <a href="{{url  ('security_login')}}">
-                    <i class='bx bx-log-in ' id="log_in"></i>
-                    <span class="links_name">Connexion</span>
-                </a>
-                <span class="tooltip">Connexion</span>
-            </li>
-        
-        {% endif %}
+		{% endif %}
 
-        
-    </ul>
+		{% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+			<li>
+				<a href="{{url ('cart_show')}}">
+					<i class='bx bx-cart'></i>
+					<span class="links_name">Panier</span>
+				</a>
+				<span class="tooltip">Panier</span>
+			</li>
 
-    
+			<li>
+				<a href="{{url ('purchase_index')}}">
+					<i class='bx bx-detail'></i>
+					<span class="links_name">Commandes</span>
+				</a>
+				<span class="tooltip">Commandes</span>
+			</li>
+
+		{% endif %}
+
+
+		{# Si c'est un utilisateur connecté #}
+		{% if app.user %}
+
+			<li>
+				<a href="{{url ('security_logout')}}">
+					<i class='bx bx-log-out bx-fade-left-hover' id="log_out"></i>
+					<span class="links_name">Deconnexion</span>
+				</a>
+				<span class="tooltip">Deconnexion</span>
+			</li>
+		{% else %}
+			<li>
+				<a href="{{url ('security_login')}}">
+					<i class='bx bx-log-in ' id="log_in"></i>
+					<span class="links_name">Connexion</span>
+				</a>
+				<span class="tooltip">Connexion</span>
+			</li>
+
+		{% endif %}
+
+
+	</ul>
+
+
 </div>
 <script type="text/javascript" src={{asset('JS/Kidsevents/script.js')}}></script>
 <!-- End NavBar -->
