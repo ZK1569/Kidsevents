@@ -46,20 +46,41 @@
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis officiis, autem provident consequuntur pariatur maxime aspernatur dolores architecto numquam aperiam fugit minima aliquam odio laboriosam vero nemo totam! Libero, facilis.</p>
 
 		<div class="row my-slider">
+<<<<<<< Updated upstream:templates/homepage/index.html.twig
  
 			{% for theme in contenu %}
                 {% include "shared/_themes.html.twig"%}
+=======
+			{% for product in prod %}
+                {% include "shared/_themes.html.twig" %}
+>>>>>>> Stashed changes:templates/homepage/home.html.twig
             {% endfor %}
 		</div>
 	</section>
 {% endblock %}
 
+<<<<<<< Updated upstream:templates/homepage/index.html.twig
     {% block footer %}
         {# Add the footer #}
 		{% include "shared/_footer.html.twig" %}
     {% endblock %}
     
     
+=======
+	{# --- List des Supplement possible ------------ #}
+	<section class="activite">
+		<h1>Nos Supplements</h1>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, repudiandae?</p>
+		
+		<div class="row my-slider-sup">
+			{% for supplement in supp %}
+				{% include "shared/_supplement.html.twig" %}
+			{% endfor %}
+		</div>
+	</section>
+
+
+>>>>>>> Stashed changes:templates/homepage/home.html.twig
 
 
 

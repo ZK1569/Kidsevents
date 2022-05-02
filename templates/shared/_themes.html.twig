@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <div class="activCol">
     <img src="{{asset('img/Themes/' ~ theme.image)}}" alt="{{theme.intitule}}">
     <a href="{{url ('theme_show', {'slug':theme.slug} )}}">
@@ -6,3 +7,35 @@
         </div>
     </a>
 </div>
+=======
+{# ---- Box slider -------------- #}
+<div class="all-slider">
+
+    
+
+    <div class="box">
+        {# ---- img-box ----------- #}
+        <div class="slider-img">
+        
+            <img src="{{asset('img/Themes/' ~ product.mainPicture)}}" alt="{{product.name}}">
+            {# --- Overlayer ------------ #}
+            <div class="overlay">
+                {# --- buy button -----------#}
+                <a href="{{url ('product_show', {'slug':product.slug} )}}" class="buy-btn">Consulter le produit</a>
+            </div>
+        </div>
+
+        {# --- detail-box ------ #}
+        <div class="detail-box">
+            {# --- type --------- #}
+            <div class="type">
+                {{product.name | upper}}</a>
+            </div>
+            {# --- price ---------#}
+            <a href="#" class="price">{{product.price}} €</a>
+
+
+        </div>
+    </div>
+</div> 
+>>>>>>> Stashed changes

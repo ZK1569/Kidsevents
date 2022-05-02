@@ -1,0 +1,30 @@
+{# ---- Box slider -------------- #}
+<div class="all-slider">
+
+    
+
+    <div class="box">
+        {# ---- img-box ----------- #}
+        <div class="slider-img">
+        
+            <img src="{{asset('img/supplement/' ~ supplement.mainPicture)}}" alt="{{supplement.name}}">
+            {# --- Overlayer ------------ #}
+            <div class="overlay">
+                {# --- buy button -----------#}
+                <a href="{{url ('supplement_show', {'slug':supplement.slug} )}}" class="buy-btn">Consulter le supplément</a>
+            </div>
+        </div>
+
+        {# --- detail-box ------ #}
+        <div class="detail-box">
+            {# --- type --------- #}
+            <div class="type">
+                {{supplement.name | upper}}</a>
+            </div>
+            {# --- price ---------#}
+            <a href="#" class="price">{{supplement.price}} €</a>
+
+
+        </div>
+    </div>
+</div> 

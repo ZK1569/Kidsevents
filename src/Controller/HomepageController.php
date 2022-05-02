@@ -55,6 +55,7 @@ class HomepageController extends AbstractController{
            $this->entityManager->persist($model);
            $this->entityManager->flush();
 
+<<<<<<< Updated upstream
            $message = 'Votre demande a été enregistrée';
            $this->addFlash('notice', $message);
 
@@ -62,6 +63,11 @@ class HomepageController extends AbstractController{
         }
         return $this->renderForm('admin/users/interet.html.twig', [
             'form' => $form,
+=======
+        return $this->render('homepage/home.html.twig', [
+            "prod" => $productRepository->findAll(),
+            "supp" => $supplementRepository->findAll(),
+>>>>>>> Stashed changes
         ]);
     }
 
