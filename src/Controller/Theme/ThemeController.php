@@ -115,4 +115,22 @@ class ThemeController extends AbstractController
             'product' => $product
         ]);
     }
+    
+    // supprimer un theme
+	#[Route('/product/remove/{id}', name: 'product.remove')]
+	public function remove(int $id, EntityManagerInterface $em, ProductRepository $productRepository):Response
+	{
+		// sélectionner l'entité
+		$product = $productRepository->find($id);
+
+		// supprimer l'entité sélectionnée
+		$em->remove($product);
+		$em->flush();
+
+		// message de confirmation
+		$this->addFlash('notice', 'theme supprimé');
+
+		// redirection
+		return $this->redirectToRoute('homepage.index');
+	}
 }

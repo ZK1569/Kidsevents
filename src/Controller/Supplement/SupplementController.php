@@ -106,4 +106,22 @@ class SupplementController extends AbstractController
             'supplement' => $supplement
         ]);
     }
+
+    // supprimer un supplement
+	#[Route('/supplement/remove/{id}', name: 'supplement.remove')]
+	public function remove(int $id, EntityManagerInterface $em, SupplementRepository $supplementRepository):Response
+	{
+		// sélectionner l'entité
+		$supplement = $supplementRepository->find($id);
+
+		// supprimer l'entité sélectionnée
+		$em->remove($supplement);
+		$em->flush();
+
+		// message de confirmation
+		$this->addFlash('notice', 'Supplement supprimé');
+
+		// redirection
+		return $this->redirectToRoute('homepage.index');
+	}
 }

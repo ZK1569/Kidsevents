@@ -5,7 +5,7 @@ namespace App\Controller\Cart;
 
 use App\Cart\CartService;
 use App\Form\CartConfirmationType;
-use App\Repository\ProductRepository;
+use App\Repository\SupplementRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,12 +14,12 @@ use Symfony\Component\HttpFoundation\Request;
 class CartController extends AbstractController
 {
 
-    protected $productRepository;
+    protected $supplementRepository;
     protected $cartService;
 
-    public function __construct(ProductRepository $productRepository, CartService $cartService)
+    public function __construct(SupplementRepository $supplementRepository, CartService $cartService)
     {
-        $this->productRepository = $productRepository;
+        $this->productRepository = $supplementRepository;
         $this->cartService = $cartService;
         
     }
@@ -31,14 +31,14 @@ class CartController extends AbstractController
     public function add($id, Request $request, SessionInterface $session)
     {
         // Si le produit est dans la base de donnée 
-        $product = $this->productRepository->find($id);
+        $product = $this->supplementRepository->find($id);
         if (!$product){
-            throw $this->createNotFoundException('Le produit $id n\'existe pas !');
+            throw $this->createNotFoundException('Le supplement $id n\'existe pas !');
         }
         
         $this->cartService->add($id, $session);
 
-        $this->addFlash('success', "Le produit a bien été ajouté au panier");
+        $this->addFlash('success', "Le supplement a bien été ajouté au panier");
 
         // Si jamais l'option returnToCart est vrai redirige vers le panier
         // Elle est appeler dans le twig index.html.twig venant du templates/cart dans td pour le boutton plus.
@@ -57,10 +57,10 @@ class CartController extends AbstractController
      */
     public function delet($id, SessionInterface $session){
 
-        $product = $this->productRepository->find($id);
+        $product = $this->supplementRepository->find($id);
 
         if(!$product){
-            throw $this->createNotFoundException("Le theme $id n\'existe pas et ne peut pas être supprimé !");
+            throw $this->createNotFoundException("Le supplement $id n\'existe pas et ne peut pas être supprimé !");
         }
 
         $this->cartService->remove($id, $session);
