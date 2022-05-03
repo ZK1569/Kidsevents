@@ -11,16 +11,13 @@
             {# --- Overlayer ------------ #}
             <div class="overlay">
                 {# --- buy button -----------#}
-                <a href="{{url ('cart_add', {'id':product.id})}}" class="buy-btn">Ajouter au panier</a>
+                <a href="{{url ('product_show', {'slug':product.slug})}}" class="check-btn">Consulter le theme</a>
             </div>
         </div>
 
         {# --- detail-box ------ #}
         <div class="detail-box">
-            {# --- type --------- #}
-            <div class="type">
-                <a href="{{url ('product_show', {'slug':product.slug} )}}">{{product.name | upper}}</a>
-            </div>
+            {{product.name | upper}}            
             {# --- price ---------#}
             <a href="#" class="price">{{product.price}} €</a>
 

@@ -46,7 +46,7 @@
 		<h1>Nos Activités</h1>
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis officiis, autem provident consequuntur pariatur maxime aspernatur dolores architecto numquam aperiam fugit minima aliquam odio laboriosam vero nemo totam! Libero, facilis.</p>
 		<div class="row my-slider">
-			{% for product in contenu %}
+			{% for product in pro %}
                 {% include "shared/_themes.html.twig" %}
             {% endfor %}
 		</div>
@@ -58,15 +58,12 @@
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, repudiandae?</p>
 		
 		<div class="row my-slider-sup">
-			{% for sup in supplement %}
+			{% for supplement in sup %}
 				{% include "shared/_supplement.html.twig" %}
 			{% endfor %}
 		</div>
 	</section>
-
-
-
-
+	
 {% endblock %}
 
 {% block footer %}

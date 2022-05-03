@@ -15,8 +15,8 @@ class HomepageController extends AbstractController
     public function index(ProductRepository $productRepository, SupplementRepository $supplementRepository):Response{
 
         return $this->render('homepage/home.html.twig', [
-            "contenu" => $productRepository->findAll(),
-            "supplement" => $supplementRepository->findAll(),
+            "pro" => $productRepository->findAll(),
+            "sup" => $supplementRepository->findAll(),
         ]);
     }
 }

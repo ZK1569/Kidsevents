@@ -66,9 +66,10 @@ a{
     align-items: center;
 }
 
-.buy-btn{
+.check-btn{
     width: 180px;
-    height: 40px;
+    min-height: 40px;
+    height: fit-content;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -80,7 +81,7 @@ a{
     box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.2);
 }
 
-.buy-btn:hover{
+.check-btn:hover{
     color: #FFFFFF;
     background-color: #f9004d;
     transition: all ease 0.3s;

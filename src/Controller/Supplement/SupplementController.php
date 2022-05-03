@@ -2,20 +2,45 @@
 
 namespace App\Controller\Supplement;
 
-use Doctrine\ORM\Events;
 use App\Entity\Supplement;
 use App\Form\SupplementType;
 use App\Repository\SupplementRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class SupplementController extends AbstractController{
+class SupplementController extends AbstractController
+{
 
+
+
+    
+    // To show the supplement
+    #[Route('/{slug}_supplement', name: 'supplement_show', priority:-1 )]
+    public function show($slug, SupplementRepository $supplementRepository): Response
+    {
+        // Foud the product is the DataBase
+        $supplement = $supplementRepository->findOneBy([
+            'slug' => $slug
+        ]);
+
+        // If here is nothing in the DataBase with the same slug
+        if(!$supplement){
+            // Raise an excption (error)
+            throw $this->createNotFoundException("Le supplement n'existe pas");
+        }
+
+        return $this->render('supplement/show.html.twig', [
+            'supplement' => $supplement
+        ]);
+    }
+
+
+    // To edit the supplement
     #[Route('/admin/supplement/create', name:'supplement_create')]
     public function create(Request $request, SluggerInterface $slugger, EntityManagerInterface $em){
 
