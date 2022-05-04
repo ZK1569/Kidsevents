@@ -5,6 +5,7 @@ namespace App\Controller\Cart;
 
 use App\Cart\CartService;
 use App\Form\CartConfirmationType;
+use App\Repository\ProductRepository;
 use App\Repository\SupplementRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -13,32 +14,31 @@ use Symfony\Component\HttpFoundation\Request;
 
 class CartController extends AbstractController
 {
-
+    protected $productRepository;
     protected $supplementRepository;
     protected $cartService;
 
-    public function __construct(SupplementRepository $supplementRepository, CartService $cartService)
+    public function __construct(ProductRepository $productRepository, SupplementRepository $supplementRepository, CartService $cartService)
     {
-        $this->productRepository = $supplementRepository;
+        $this->productRepository = $productRepository;
+        $this->supplementRepository = $supplementRepository;
         $this->cartService = $cartService;
         
     }
 
-
-    /**
-     * @Route("cart/add/{id}", name="cart_add", requirements={"id":"\d+"})
-     */
-    public function add($id, Request $request, SessionInterface $session)
+    #[Route('cart/add/product/{id}', name:"cart_add_product")]
+    public function addc($id, Request $request, SessionInterface $session)
     {
         // Si le produit est dans la base de donnée 
-        $product = $this->supplementRepository->find($id);
+        $product = $this->productRepository->find($id);
         if (!$product){
-            throw $this->createNotFoundException('Le supplement $id n\'existe pas !');
+            throw $this->createNotFoundException("$id n'existe pas !");
         }
+
         
         $this->cartService->add($id, $session);
 
-        $this->addFlash('success', "Le supplement a bien été ajouté au panier");
+        $this->addFlash('success', "ajout au panier réussi");
 
         // Si jamais l'option returnToCart est vrai redirige vers le panier
         // Elle est appeler dans le twig index.html.twig venant du templates/cart dans td pour le boutton plus.
@@ -46,18 +46,37 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_show');
         }
 
-        return $this->redirectToRoute('product_show', [
-            'slug' => $product->getSlug()
-
-        ]);
+        return $this->redirectToRoute('homepage.index');
     }
 
-    /**
-     * @Route("cart/delete/{id}", name="cart_delete")
-     */
+    #[Route('cart/add/supplement/{id}', name:"cart_add_supplement")]
+    public function adds($id, Request $request, SessionInterface $session)
+    {
+        // Si le supplement est dans la base de donnée 
+        $supplement = $this->supplementRepository->find($id);
+        if (!$supplement){
+            throw $this->createNotFoundException("$id n'existe pas !");
+        }
+
+        
+        $this->cartService->add($id, $session);
+
+        $this->addFlash('success', "ajout au panier réussi");
+
+        // Si jamais l'option returnToCart est vrai redirige vers le panier
+        // Elle est appeler dans le twig index.html.twig venant du templates/cart dans td pour le boutton plus.
+        if($request->query->get('returnToCart')){
+            return $this->redirectToRoute('cart_show');
+        }
+
+        return $this->redirectToRoute('homepage.index');
+    }
+
+    
+    #[Route('cart/delete/{id}', name:"cart_delete")]
     public function delet($id, SessionInterface $session){
 
-        $product = $this->supplementRepository->find($id);
+        $product = $this->productRepository->find($id);
 
         if(!$product){
             throw $this->createNotFoundException("Le supplement $id n\'existe pas et ne peut pas être supprimé !");
@@ -65,7 +84,7 @@ class CartController extends AbstractController
 
         $this->cartService->remove($id, $session);
 
-        $this->addFlash("success", "Le produit a bien été supprimé du panier");
+        $this->addFlash("success", "Le thème a bien été supprimé du panier");
 
         return $this->redirectToRoute("cart_show");
 
@@ -89,20 +108,18 @@ class CartController extends AbstractController
 
 
 
-    /**
-     * @Route("/cart/decrement/{id}", name="cart_decrement", requirements={"id": "\d+"})
-     */
+    #[Route('/cart/decrement/supplement/{id}', name:"cart_decrement_supplement")]
     public function decrement($id, SessionInterface $session) {
 
-        $produit = $this->productRepository->find($id);
+        $supplement = $this->supplementRepository->find($id);
 
-        if(!$produit){
-            throw $this->createNotFoundException(" Le produit $id n'eciste pas et ne peut pas être modifier");
+        if(!$supplement){
+            throw $this->createNotFoundException(" Le supplement $id n'eciste pas et ne peut pas être modifier");
         }
 
         $this->cartService->decrement($id, $session);
 
-        $this->addFlash('success', 'Le produit a bien ete modifier');
+        $this->addFlash('success', 'Le supplement a bien été modifié');
 
         return $this->redirectToRoute('cart_show');
 

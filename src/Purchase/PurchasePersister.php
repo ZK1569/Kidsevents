@@ -36,11 +36,11 @@ class PurchasePersister extends AbstractController {
         foreach($this->cartService->getDetailCartitems($session) as $cartItems){
             $purchaseItem = new PurchaseItem;
             $purchaseItem->setPurchase($purchase)
-            ->setProduct($cartItems->product)
-            ->setProductName($cartItems->product->getName())
+            ->setSupplement($cartItems->supplement)
+            ->setProductName($cartItems->supplement->getName())
             ->setQuantity($cartItems->qty)
             ->setTotal($cartItems->getTotal())
-            ->setProductPrice($cartItems->product->getPrice());
+            ->setSupplementPrice($cartItems->supplement->getPrice());
 
             $this->em->persist($purchaseItem);
         }

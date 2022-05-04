@@ -20,7 +20,7 @@ class SupplementController extends AbstractController
 
     
     // To show the supplement
-    #[Route('/{slug}_supplement', name: 'supplement_show', priority:-1 )]
+    #[Route('supplement/{slug}', name: 'supplement_show', priority:-1 )]
     public function show($slug, SupplementRepository $supplementRepository): Response
     {
         // Foud the product is the DataBase

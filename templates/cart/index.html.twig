@@ -29,7 +29,7 @@
                         <th>Prix</th>
                         <th>Quantité</th>
                         <th>Total</th>
-                        <th></th>
+                        <th>annuler</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,14 +37,22 @@
                         <tr>
                             <td>{{item.product.name | upper}}</td>
                             <td>{{item.product.price}}</td>
+                            <td>Unique</td>
+                            <td></td>
+                            <td><a href="{{url('cart_delete', {'id': item.product.id})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
+                        </tr>
+                        <tr>
+                        {% if item.supplement != null %}
+                            <td>{{item.supplement.name | upper}}</td>
+                            <td>{{item.supplement.price}}</td>
                             <td>
-                            {# ReturnToCart=true c'est pour eviter de repasser sur la page produit #}
-                            <a href="{{url("cart_add", {'id':item.product.id})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
+                            {# ReturnToCart=true c'est pour eviter de repasser sur la page produit #}                        
+                            <a href="{{url("cart_add_supplement", {'id':item.supplement.id})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
                             {{item.qty}}
-                            <a href="{{url("cart_decrement", {'id':item.product.id})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
+                            <a href="{{url("cart_decrement_supplement", {'id':item.supplement.id})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
                             </td>
                             <td>{{item.total}} €</td>
-                            <td><a href="{{url('cart_delete', {'id': item.product.id})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
+                        {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>

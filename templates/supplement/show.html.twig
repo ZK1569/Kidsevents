@@ -16,11 +16,15 @@
                     <h2>{{supplement.name}}</h2>
                     <h5>KidsEvents Proposition</h5>
 
-                    <p>Prix de l'activitée : {{supplement.price}} €</p>    
-                    <a href="{{url ('cart_add', {'id':supplement.id})}}"><button type="button">Ajouter au panier</button></a>
+                    <p>Prix de l'activitée : {{supplement.price}} €</p>
+
+                    {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}    
+                        <a href="{{url ('cart_add_supplement', {'id':supplement.id})}}"><button type="button">Ajouter au panier</button></a>
+                    {% endif %}
+
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{url ('supplement_edit', {'id':supplement.id} ) }}"><button type="button">Modifier</button></a> </br>
-                        <a href="{{url ('supplement.remove', {'id':supplement.id} ) }}"><button type="button">Supprimer</button></a>
+                        <a href="{{url ('supplement_edit_supplement', {'id':supplement.id} ) }}"><button type="button">Modifier</button></a> </br>
+                        <a href="{{url ('supplement.remove_supplement', {'id':supplement.id} ) }}"><button type="button">Supprimer</button></a>
                     {% endif %}
 
                     {# Pour les flash apres l'ajout au pannier #}

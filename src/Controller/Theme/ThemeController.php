@@ -2,6 +2,7 @@
 
 namespace App\Controller\Theme;
 
+use App\Cart\CartService;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -13,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ThemeController extends AbstractController
 {
@@ -20,8 +22,8 @@ class ThemeController extends AbstractController
 
 
     // To show the product
-    #[Route('/{slug}_theme', name: 'product_show', priority:-1 )]
-    public function show($slug, ProductRepository $productRepository, SupplementRepository $supplementRepository): Response
+    #[Route('theme/{slug}', name: 'product_show', priority:-1 )]
+    public function show($slug, ProductRepository $productRepository, SupplementRepository $supplementRepository, SessionInterface $session, CartService $cartService): Response
     {
         // Foud the product is the DataBase
         $product = $productRepository->findOneBy([
@@ -33,8 +35,10 @@ class ThemeController extends AbstractController
             // Raise an excption (error)
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
+        $detailCart = $cartService->getDetailCartitems($session);
 
         return $this->render('theme/show.html.twig', [
+            'items' => $detailCart,
             'product' => $product,
             "sup" => $supplementRepository->findAll(),
         ]);

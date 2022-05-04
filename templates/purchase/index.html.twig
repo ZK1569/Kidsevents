@@ -27,7 +27,7 @@
         {% else %}
             
 
-        <h3>Les commandes à venir </h3>
+        <h3>Les commandes à venir après le {{"now"|date("d/m/Y")}}</h3>
 
         <table class="table">
             <thead>
@@ -36,13 +36,13 @@
                     <th>Adress</th>
                     <th>Date de commande</th>
                     <th>Date de l'anniversaire</th>
-                    <th>Themes</th>
+                    <th>Supplements</th>
                     <th>Total</th>
                 </tr>
             </thead>    
             <tbody>
                 {% for p in purchases %}
-                    {% if "now"|date("d/m/Y") < p.reserveFor | date('d/m/Y')%}
+                    {% if "now"|date() <= p.reserveFor|date()%}
                         <tr>
                             <td>{{p.id}}</td>
                             <td>{{p.address}} <br>{{p.postalCode}}, {{p.city}}</td>
@@ -51,7 +51,7 @@
                             <td>
                                 <ul>
                                     {% for item in p.purchaseItems %}
-                                        <li>{{item.productName}} {{item.Total}} €</li>
+                                        <li>{{item.quantity}}x {{item.supplementName}} ({{item.Total}} €)</li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -77,7 +77,7 @@
             </thead>    
             <tbody>
                 {% for p in purchases %}
-                {% if "now"|date("d/m/Y") > p.reserveFor | date('d/m/Y')%}
+                {% if "now"|date() >= p.reserveFor|date()%}
                     <tr>
                         <td>{{p.id}}</td>
                         <td>{{p.address}} <br>{{p.postalCode}}, {{p.city}}</td>
@@ -86,7 +86,7 @@
                         <td>
                             <ul>
                                 {% for item in p.purchaseItems %}
-                                    <li>{{item.productName}} {{item.Total}} €</li>
+                                    <li>{{item.supplementName}} {{item.Total}} €</li>
                                 {% endfor %}
                             </ul>
                         </td>

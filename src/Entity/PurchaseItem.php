@@ -13,14 +13,16 @@ class PurchaseItem
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'purchaseItems')]
-    private $product;
+    #[ORM\ManyToOne(targetEntity: Supplement::class, inversedBy: 'purchaseItems')]
+    #[ORM\JoinColumn(nullable: true)]
+    private $supplement;
 
     #[ORM\ManyToOne(targetEntity: Purchase::class, inversedBy: 'purchaseItems')]
     #[ORM\JoinColumn(nullable: false)]
     private $purchase;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\OneToOne(targetEntity: Supplement::class, inversedBy: 'purchaseItems')]
+    #[ORM\JoinColumn(nullable: true)]
     private $productName;
 
     #[ORM\Column(type: 'integer')]
@@ -37,14 +39,14 @@ class PurchaseItem
         return $this->id;
     }
 
-    public function getProduct(): ?Product
+    public function getSupplement(): ?Supplement
     {
-        return $this->product;
+        return $this->supplement;
     }
 
-    public function setProduct(?Product $product): self
+    public function setSupplement(?Supplement $supplement): self
     {
-        $this->product = $product;
+        $this->supplement = $supplement;
 
         return $this;
     }
@@ -61,12 +63,12 @@ class PurchaseItem
         return $this;
     }
 
-    public function getProductName(): ?string
+    public function getProductName(): ?Product
     {
         return $this->productName;
     }
 
-    public function setProductName(string $productName): self
+    public function setProductName(?Product $productName): self
     {
         $this->productName = $productName;
 

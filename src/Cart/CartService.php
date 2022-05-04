@@ -3,17 +3,19 @@
 namespace App\Cart;
 
 use App\Entity\Product;
+use App\Repository\ProductRepository;
 use App\Repository\SupplementRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService{
 
 
-    protected $productRepository;
+    protected $supplementRepository;
 
-    public function __construct(SupplementRepository $supplmentRepository){
+    public function __construct(SupplementRepository $supplementRepository, ProductRepository $productRepository){
 
-        $this->supplmentRepository = $supplmentRepository;
+        $this->productRepository = $productRepository;
+        $this->supplementRepository = $supplementRepository;
     }
 
     protected function saveCart(array $cart, $session){
@@ -61,14 +63,19 @@ class CartService{
         $total = 0;
 
         foreach($session->get('cart',[]) as $id => $qty){
-            $supplment = $this->supplmentRepository->find($id);
+            $product = $this->productRepository->find($id);
+            $supplement = $this->supplementRepository->find($id);
 
             // Si jamais dans la session il y a un produit qui a ete supprimer de la BDD
-            if(!$supplment){
+            if(!$supplement and !$product){
                 continue;
             }
-
-            $total += $supplment->getPrice() * $qty;
+            if(!$supplement){
+                $total += $product->getPrice();
+            }
+            else{
+                $total += $product->getPrice() + $supplement->getPrice() * $qty;
+            }
         }
 
         return $total;
@@ -83,14 +90,15 @@ class CartService{
         $detailCart = [];
 
         foreach($session->get('cart',[]) as $id => $qty){
-            $supplment = $this->supplmentRepository->find($id);
+            $product = $this->productRepository->find($id);
+            $supplement = $this->supplementRepository->find($id);
 
             // Si jamais dans la session il y a un produit qui a ete supprimer de la BDD
-            if(!$supplment){
+            if(!$supplement and !$product){
                 continue;
             }
 
-            $detailCart[] = new CartItem($supplment, $qty);
+            $detailCart[] = new CartItem($product, $supplement, $qty);
         }
 
         return $detailCart;
