@@ -26,18 +26,19 @@ class CartController extends AbstractController
         
     }
 
-    #[Route('cart/add/product/{id}', name:"cart_add_product")]
-    public function addc($id, Request $request, SessionInterface $session)
+    #[Route('cart/add/product/{slug}', name:"cart_add_product")]
+    public function addc($slug, Request $request, SessionInterface $session)
     {
         // Si le produit est dans la base de donnée 
-        $product = $this->productRepository->find($id);
+        $product = $this->productRepository->findOneBy([
+            'slug' => $slug
+        ]);
         if (!$product){
-            throw $this->createNotFoundException("$id n'existe pas !");
+            throw $this->createNotFoundException("$slug n'existe pas !");
         }
 
         
-        $this->cartService->add($id, $session);
-
+        $this->cartService->add($slug, $session);
         $this->addFlash('success', "ajout au panier réussi");
 
         // Si jamais l'option returnToCart est vrai redirige vers le panier
@@ -49,17 +50,19 @@ class CartController extends AbstractController
         return $this->redirectToRoute('homepage.index');
     }
 
-    #[Route('cart/add/supplement/{id}', name:"cart_add_supplement")]
-    public function adds($id, Request $request, SessionInterface $session)
+    #[Route('cart/add/supplement/{slug}', name:"cart_add_supplement")]
+    public function adds($slug, Request $request, SessionInterface $session)
     {
         // Si le supplement est dans la base de donnée 
-        $supplement = $this->supplementRepository->find($id);
+        $supplement = $this->supplementRepository->findOneBy([
+            'slug' => $slug
+        ]);
         if (!$supplement){
-            throw $this->createNotFoundException("$id n'existe pas !");
+            throw $this->createNotFoundException("$slug n'existe pas !");
         }
 
         
-        $this->cartService->add($id, $session);
+        $this->cartService->add($slug, $session);
 
         $this->addFlash('success', "ajout au panier réussi");
 
@@ -73,16 +76,18 @@ class CartController extends AbstractController
     }
 
     
-    #[Route('cart/delete/{id}', name:"cart_delete")]
-    public function delet($id, SessionInterface $session){
+    #[Route('cart/delete/{slug}', name:"cart_delete")]
+    public function delet($slug, SessionInterface $session){
 
-        $product = $this->productRepository->find($id);
+        $product = $this->productRepository->findOneBy([
+            'slug' => $slug
+        ]);
 
         if(!$product){
-            throw $this->createNotFoundException("Le supplement $id n\'existe pas et ne peut pas être supprimé !");
+            throw $this->createNotFoundException("Le supplement $slug n\'existe pas et ne peut pas être supprimé !");
         }
 
-        $this->cartService->remove($id, $session);
+        $this->cartService->remove($slug, $session);
 
         $this->addFlash("success", "Le thème a bien été supprimé du panier");
 
@@ -108,16 +113,18 @@ class CartController extends AbstractController
 
 
 
-    #[Route('/cart/decrement/supplement/{id}', name:"cart_decrement_supplement")]
-    public function decrement($id, SessionInterface $session) {
+    #[Route('/cart/decrement/supplement/{slug}', name:"cart_decrement_supplement")]
+    public function decrement($slug, SessionInterface $session) {
 
-        $supplement = $this->supplementRepository->find($id);
+        $supplement = $this->supplementRepository->findOneBy([
+            'slug' => $slug
+        ]);
 
         if(!$supplement){
-            throw $this->createNotFoundException(" Le supplement $id n'eciste pas et ne peut pas être modifier");
+            throw $this->createNotFoundException(" Le supplement $slug n'eciste pas et ne peut pas être modifier");
         }
 
-        $this->cartService->decrement($id, $session);
+        $this->cartService->decrement($slug, $session);
 
         $this->addFlash('success', 'Le supplement a bien été modifié');
 

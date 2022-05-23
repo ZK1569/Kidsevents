@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,6 +43,10 @@ class CartConfirmationType extends AbstractType
             ->add('reserve_for', DateType::class, [
                 'label' => 'Date de reservation',
                 'format' => 'dd/MM/yyyy',
+                'data' => new \DateTime("now"),
+            ])
+            ->add('reserve_time', TimeType::class, [
+                'label' => 'Heure de reservation',
             ])
         ;
     }

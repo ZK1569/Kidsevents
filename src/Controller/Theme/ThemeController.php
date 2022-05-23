@@ -2,11 +2,9 @@
 
 namespace App\Controller\Theme;
 
-use App\Cart\CartService;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Repository\SupplementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ThemeController extends AbstractController
 {
@@ -23,7 +20,7 @@ class ThemeController extends AbstractController
 
     // To show the product
     #[Route('theme/{slug}', name: 'product_show', priority:-1 )]
-    public function show($slug, ProductRepository $productRepository, SupplementRepository $supplementRepository, SessionInterface $session, CartService $cartService): Response
+    public function show($slug, ProductRepository $productRepository): Response
     {
         // Foud the product is the DataBase
         $product = $productRepository->findOneBy([
@@ -35,12 +32,9 @@ class ThemeController extends AbstractController
             // Raise an excption (error)
             throw $this->createNotFoundException("Le produit n'existe pas");
         }
-        $detailCart = $cartService->getDetailCartitems($session);
 
         return $this->render('theme/show.html.twig', [
-            'items' => $detailCart,
             'product' => $product,
-            "sup" => $supplementRepository->findAll(),
         ]);
     }
 

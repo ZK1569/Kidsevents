@@ -73,7 +73,7 @@ class SupplementController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/supplement/{id}/edit', name:'supplement_edit')]
+    #[Route('/admin/supplement/{id}/edit', name:'supplement.edit')]
     public function edit ($id, SupplementRepository $supplementRepository, Request $request, EntityManagerInterface $em, SluggerInterface $slugger){
 
         $supplement = $supplementRepository->find($id);

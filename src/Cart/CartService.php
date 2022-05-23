@@ -2,7 +2,6 @@
 
 namespace App\Cart;
 
-use App\Entity\Product;
 use App\Repository\ProductRepository;
 use App\Repository\SupplementRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -11,6 +10,7 @@ class CartService{
 
 
     protected $supplementRepository;
+    protected $productRepository;
 
     public function __construct(SupplementRepository $supplementRepository, ProductRepository $productRepository){
 
@@ -23,11 +23,11 @@ class CartService{
     }
 
 
-    public function emplty($session){
+    public function empty($session){
         $this->saveCart([], $session);
     }
 
-    public function add(int $id, $session){
+    public function add(string $slug, $session){
 
         // 1. Retrouver le pannier dans la session
         // 2. Si il n'existe pas encore, alors prendre un tableau vide 
@@ -36,10 +36,10 @@ class CartService{
         // 3. Voir si le produit ($id) existe deja dans le tableau 
         // 4. Si c'est le cas, simplement augmenter la quantité
         // 5. Sinon, ajouter le produit avec la quantité
-        if(!array_key_exists($id, $cart)){
-            $cart[$id] = 0; // si il existe ajoute une cantite dans le pannier mais l'elever car il y a pas plusieurs cantité dans le site web
+        if(!array_key_exists($slug, $cart)){
+            $cart[$slug] = 0; // si il existe ajoute une cantite dans le pannier mais l'elever car il y a pas plusieurs cantité dans le site web
         }
-        $cart[$id]++;
+        $cart[$slug]++;
         
 
         // 6. Enregistrer le tableau mis a jour dans la session
@@ -47,11 +47,11 @@ class CartService{
 
     }
 
-    public function remove($id, $session){
+    public function remove($slug, $session){
 
         $cart = $session->get('cart', []);
 
-        unset($cart[$id]);
+        unset($cart[$slug]);
 
         $session->set('cart', $cart);
 
@@ -62,16 +62,23 @@ class CartService{
 
         $total = 0;
 
-        foreach($session->get('cart',[]) as $id => $qty){
-            $product = $this->productRepository->find($id);
-            $supplement = $this->supplementRepository->find($id);
+        foreach($session->get('cart',[]) as $slug => $qty){
+            $product = $this->productRepository->findOneBy([
+                'slug' => $slug
+            ]);
+            $supplement = $this->supplementRepository->findOneBy([
+                'slug' => $slug
+            ]);
 
             // Si jamais dans la session il y a un produit qui a ete supprimer de la BDD
             if(!$supplement and !$product){
                 continue;
             }
-            if(!$supplement){
+            elseif(!$supplement){
                 $total += $product->getPrice();
+            }
+            elseif(!$product){
+                $total += $supplement->getPrice() * $qty;
             }
             else{
                 $total += $product->getPrice() + $supplement->getPrice() * $qty;
@@ -89,12 +96,16 @@ class CartService{
 
         $detailCart = [];
 
-        foreach($session->get('cart',[]) as $id => $qty){
-            $product = $this->productRepository->find($id);
-            $supplement = $this->supplementRepository->find($id);
+        foreach($session->get('cart',[]) as $slug => $qty){
+            $product = $this->productRepository->findOneBy([
+                'slug' => $slug
+            ]);
+            $supplement = $this->supplementRepository->findOneBy([
+                'slug' => $slug
+            ]);
 
             // Si jamais dans la session il y a un produit qui a ete supprimer de la BDD
-            if(!$supplement and !$product){
+            if(!$supplement or !$product){
                 continue;
             }
 
@@ -105,22 +116,22 @@ class CartService{
 
     }
 
-    public function decrement($id, $session){
+    public function decrement($slug, $session){
 
         $cart = $session->get('cart', []);
 
-        if(!array_key_exists($id, $cart)){
+        if(!array_key_exists($slug, $cart)){
             return;
         }
 
         // Si le produit est a 1 alors il faut le supprimer
-        if($cart[$id] === 1){
-            $this->remove($id, $session);
+        if($cart[$slug] === 1){
+            $this->remove($slug, $session);
             return;
         }
 
         // Soit le produit est a plus de 1, il faut le decrementer
-        $cart[$id]--;
+        $cart[$slug]--;
 
         $session->set('cart', $cart);
 

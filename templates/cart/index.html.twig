@@ -20,7 +20,6 @@
         {% endfor %}
 
         {# Si il y a des elements dans le tableau, alors affiche le tableau si non affiche un H2 #}
-        {% if items | length > 0 %}
         
             <table class="table">
                 <thead>
@@ -28,7 +27,9 @@
                         <th>Produit</th>
                         <th>Prix</th>
                         <th>Quantité</th>
-                        <th>Total</th>
+                        <th>Supplements</th>
+                        <th>Prix</th>
+                        <th></th>
                         <th>annuler</th>
                     </tr>
                 </thead>
@@ -38,21 +39,15 @@
                             <td>{{item.product.name | upper}}</td>
                             <td>{{item.product.price}}</td>
                             <td>Unique</td>
-                            <td></td>
-                            <td><a href="{{url('cart_delete', {'id': item.product.id})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
-                        </tr>
-                        <tr>
-                        {% if item.supplement != null %}
+                            <td><a href="{{url('cart_delete', {'slug': item.product.slug})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
                             <td>{{item.supplement.name | upper}}</td>
                             <td>{{item.supplement.price}}</td>
                             <td>
                             {# ReturnToCart=true c'est pour eviter de repasser sur la page produit #}                        
-                            <a href="{{url("cart_add_supplement", {'id':item.supplement.id})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
+                            <a href="{{url("cart_add_supplement", {'slug':item.supplement.slug})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
                             {{item.qty}}
-                            <a href="{{url("cart_decrement_supplement", {'id':item.supplement.id})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
+                            <a href="{{url("cart_decrement_supplement", {'slug':item.supplement.slug})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
                             </td>
-                            <td>{{item.total}} €</td>
-                        {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -75,9 +70,5 @@
 
             {{form_end(confirmationForm)}}
 
-
-        {% else %}
-            <h2>Le panier est vide</h2>
-        {% endif %}
     </div>
 {% endblock %}

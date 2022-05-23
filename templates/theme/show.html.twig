@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Theme/productStyle.css')}}">
-	<link rel="stylesheet" href="{{asset('css/Homepage/sliderhometheme.css')}}">
 {% endblock %}
 
 {% block title %}Kids Events {{product.name}}{% endblock %}
@@ -39,11 +37,7 @@
                     </div>
                     
                     {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
-                        {% for item in items %}
-                            {% if item.product != 0 %}
-                                <a href="{{url ('cart_add_product', {'id':product.id})}}"><button type="button">Ajouter au panier</button></a>
-                            {% endif %}
-                        {% endfor %}
+                        <a href="{{url ('cart_add_product', {'slug':product.slug})}}"><button type="button">Ajouter au panier</button></a>
                     {% endif %}
 
                     {% if is_granted('ROLE_ADMIN') %}
@@ -67,19 +61,6 @@
             </div>
             <p class="description"><u>Description</u> :  {{product.shortDescription}}</p>
         </div>
-
-        {# --- List des Supplement possible ------------
-	<section class="activite">
-    	<div class="row my-slider-sup">
-			{% for supplement in sup %}
-				{% include "shared/_supplement.html.twig" %}
-			{% endfor %}
-		</div>
-	</section> #}
     
     
 {% endblock %}
-
-{# {% block javascripts %}
-	<script src="{{asset ('JS/Homepage/slider_sup.js')}}"></script>
-{% endblock %} #}
