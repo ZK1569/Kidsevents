@@ -76,7 +76,6 @@ p{
 }
 
 .row{
-    margin-top: 5%;
     display: flex;
     justify-content: space-between;
 }
@@ -112,47 +111,36 @@ h3{
     width: 80%;
     margin: auto;
     text-align: center;
-    padding-top: 50px;
+    padding-top: 4%;
 
 }
 
-.activCol{
-    flex-basis: 32%;
+.supplement-col{
+    flex-basis: 31%;
     border-radius: 10px;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
+    margin-bottom: 1%;
+    text-align: left;
 }
-.activCol img{
+
+.supplement-col img{
     width: 100%;
-    display: block;
+    border-radius: 10px;
 }
-.layer{
-    background: transparent;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transition: 0.5s;
+
+.supplement-col p{
+    padding: 0;
 }
-.layer:hover{
-    background: rgba(0, 160, 220, 0.7);
-    width: calc(100% - 25px);
+
+.supplement-col h3{
+    margin-top: 16px;
+    margin-bottom: 15px;
+    text-align: left;
 }
-.layer h3{
-    width: 100%;
-    font-weight: 500;
-    color: #fff;
-    font-size: 26px;
-    bottom: 0;
-    /* left: 0%; */
-    transition: translateX(-50%);
-    position: absolute;
-    opacity: 0;
-    transition: 0.5s;
+
+.tns-controls{
+    visibility: hidden;
 }
-.layer:hover h3{
-    bottom: 49%;
-    opacity: 1;
+
+.tns-nav{
+    visibility: hidden;
 }

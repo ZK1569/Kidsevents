@@ -1,0 +1,11 @@
+var slider = tns({container: '.my-slider', 
+        items: 1, 
+        slideBy: 'page', 
+        autoplay: false,
+		gutter: 10,
+		rewind: true,
+		swipeAngle: false,
+		speed: 400,
+		autoWidth: true,
+		mouseDrag: true,		
+        });

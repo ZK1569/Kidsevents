@@ -1,6 +1,5 @@
 /* Contact Info */
-footer
-{background: linear-gradient(to right, #1d7dea 0%, #ee1746 100%);
+footer{background: linear-gradient(to right, #1d7dea 0%, #ee1746 100%);
     font-size: 12px;
 }
 .contact-background{
@@ -149,11 +148,6 @@ footer
   font-size: 14px;
   cursor: pointer;
   outline: none;
-  text-decoration: none;
-  }
-
-  a.app-form-button{
-    font-size: 15px;
   }
   
   .app-form-button:hover {
@@ -196,4 +190,5 @@ footer
     .screen-body-item {
     padding: 0;
   }
-}
+  }
+  

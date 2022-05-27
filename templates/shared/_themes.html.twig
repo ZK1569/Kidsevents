@@ -1,8 +1,27 @@
-<div class="activCol">
-    <img src="{{asset('img/Themes/' ~ theme.image)}}" alt="{{theme.intitule}}">
-    <a href="{{url ('theme_show', {'slug':theme.slug} )}}">
-        <div class="layer">
-            <h3>{{theme.intitule | upper}}</h3>
+{# ---- Box slider -------------- #}
+<div class="all-slider">
+
+    
+
+    <div class="box">
+        {# ---- img-box ----------- #}
+        <div class="slider-img">
+        
+            <img src="{{asset('img/Themes/' ~ product.mainPicture)}}" alt="{{product.name}}">
+            {# --- Overlayer ------------ #}
+            <div class="overlay">
+                {# --- buy button -----------#}
+                <a href="{{url ('product_show', {'slug':product.slug})}}" class="check-btn">Consulter le theme</a>
+            </div>
         </div>
-    </a>
-</div>
+
+        {# --- detail-box ------ #}
+        <div class="detail-box">
+            {{product.name | upper}}            
+            {# --- price ---------#}
+            <a href="#" class="price">{{product.price}} €</a>
+
+
+        </div>
+    </div>
+</div> 

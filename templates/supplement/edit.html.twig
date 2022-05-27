@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% form_theme formView 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://bootswatch.com/5/lumen/bootstrap.min.css">
+{% endblock %}
+
+{% block title %}
+    Modification {{supplement.name}}
+{% endblock %}
+
+{% block body %}
+    <div class="container pt-5">
+    
+        <h1>Modification Produit : {{supplement.name}}</h1>
+
+        {{form_start(formView)}}
+        {{form_errors(formView)}}
+
+        <div class="row">
+            <div class="col ">
+                {{form_row(formView.name)}}
+                {{form_row(formView.short_description)}}
+                {{form_row(formView.price)}}
+            </div>
+            <div class="col">
+                {{form_row(formView.main_picture)}}
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bx bx-save"></i>
+            Fin
+        </button>
+
+        {{form_end(formView)}}
+
+    </div>
+        
+{% endblock %}

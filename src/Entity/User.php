@@ -3,11 +3,14 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -25,19 +28,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $FirstName;
+    private $first_name;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $LastName;
+    private $last_name;
 
-    #[ORM\Column(type: 'string', length: 15, nullable: true)]
-    private $Phone;
+    #[ORM\Column(type: 'string', length: 15)]
+    private $phone;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $Address;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $address;
 
-    #[ORM\Column(type: 'boolean')]
-    private $interest;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Purchase::class)]
+    private $purchases;
+
+    public function __construct()
+    {
+        $this->purchases = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,60 +119,78 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getFirstName(): ?string
     {
-        return $this->FirstName;
+        return $this->first_name;
     }
 
-    public function setFirstName(string $FirstName): self
+    public function setFirstName(string $first_name): self
     {
-        $this->FirstName = $FirstName;
+        $this->first_name = $first_name;
 
         return $this;
     }
 
     public function getLastName(): ?string
     {
-        return $this->LastName;
+        return $this->last_name;
     }
 
-    public function setLastName(string $LastName): self
+    public function setLastName(string $last_name): self
     {
-        $this->LastName = $LastName;
+        $this->last_name = $last_name;
 
         return $this;
     }
 
     public function getPhone(): ?string
     {
-        return $this->Phone;
+        return $this->phone;
     }
 
-    public function setPhone(?string $Phone): self
+    public function setPhone(string $phone): self
     {
-        $this->Phone = $Phone;
+        $this->phone = $phone;
 
         return $this;
     }
 
     public function getAddress(): ?string
     {
-        return $this->Address;
+        return $this->address;
     }
 
-    public function setAddress(?string $Address): self
+    public function setAddress(string $address): self
     {
-        $this->Address = $Address;
+        $this->address = $address;
 
         return $this;
     }
 
-    public function getInterest(): ?bool
+    /**
+     * @return Collection<int, Purchase>
+     */
+    public function getPurchases(): Collection
     {
-        return $this->interest;
+        return $this->purchases;
     }
 
-    public function setInterest(bool $interest): self
+    public function addPurchase(Purchase $purchase): self
     {
-        $this->interest = $interest;
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getUser() === $this) {
+                $purchase->setUser(null);
+            }
+        }
 
         return $this;
     }
