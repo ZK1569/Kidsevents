@@ -27,7 +27,7 @@ class CartController extends AbstractController
     }
 
     #[Route('cart/add/product/{slug}', name:"cart_add_product")]
-    public function addc($slug, Request $request, SessionInterface $session)
+    public function add(string $slug, Request $request, SessionInterface $session)
     {
         // Si le produit est dans la base de donnée 
         $product = $this->productRepository->findOneBy([
@@ -77,7 +77,7 @@ class CartController extends AbstractController
 
     
     #[Route('cart/delete/{slug}', name:"cart_delete")]
-    public function delet($slug, SessionInterface $session){
+    public function delete($slug, SessionInterface $session){
 
         $product = $this->productRepository->findOneBy([
             'slug' => $slug
@@ -100,12 +100,15 @@ class CartController extends AbstractController
 
         $form = $this->createForm(CartConfirmationType::class);
         
-        $detailCart = $cartService->getDetailCartitems($session);
+        $supCart = $cartService->getDetailCartsup($session);
+        
+        $prodCart = $cartService->getDetailCartprod($session);
 
         $total = $cartService->getTotal($session);
 
         return $this->render('cart/index.html.twig', [
-            'items' => $detailCart,
+            'supplements' => $supCart,
+            'products' => $prodCart,
             'total' => $total,
             'confirmationForm' => $form->createView(),   
         ]);

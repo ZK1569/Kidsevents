@@ -29,22 +29,20 @@ class CartService{
 
     public function add(string $slug, $session){
 
-        // 1. Retrouver le pannier dans la session
-        // 2. Si il n'existe pas encore, alors prendre un tableau vide 
+        // 1. Cherche le pannier dans la session
+        // 2. Si il n'existe pas encore, alors créé un tableau vide 
         $cart = $session->get('cart', []);
 
-        // 3. Voir si le produit ($id) existe deja dans le tableau 
-        // 4. Si c'est le cas, simplement augmenter la quantité
-        // 5. Sinon, ajouter le produit avec la quantité
+        // 3. Vérifie si le produit ($slug) existe déjà dans le tableau 
+        // 4. Si c'est le cas, ne rien faire
+        // 5. Sinon, ajouter le produit
         if(!array_key_exists($slug, $cart)){
-            $cart[$slug] = 0; // si il existe ajoute une cantite dans le pannier mais l'elever car il y a pas plusieurs cantité dans le site web
+            $cart[$slug] = 0;
         }
         $cart[$slug]++;
         
-
         // 6. Enregistrer le tableau mis a jour dans la session
         $session->set('cart', $cart);
-
     }
 
     public function remove($slug, $session){
@@ -54,9 +52,7 @@ class CartService{
         unset($cart[$slug]);
 
         $session->set('cart', $cart);
-
     }
-
 
     public function getTotal($session): int{
 
@@ -86,34 +82,48 @@ class CartService{
         }
 
         return $total;
-
     }
 
     /**
-     *  @return CartItem[]
+     *  @return CartSup[]
      */
-    public function getDetailCartitems($session): array {
+    public function getDetailCartsup($session): array {
 
-        $detailCart = [];
+        $supCart = [];
 
         foreach($session->get('cart',[]) as $slug => $qty){
-            $product = $this->productRepository->findOneBy([
-                'slug' => $slug
-            ]);
             $supplement = $this->supplementRepository->findOneBy([
                 'slug' => $slug
             ]);
 
             // Si jamais dans la session il y a un produit qui a ete supprimer de la BDD
-            if(!$supplement or !$product){
+            if(!$supplement){
                 continue;
             }
-
-            $detailCart[] = new CartItem($product, $supplement, $qty);
+            $supCart[] = new CartSup($supplement, $qty);
         }
+        return $supCart;
+    }
 
-        return $detailCart;
+    /**
+     *  @return CartProd[]
+     */
+    public function getDetailCartprod($session): array {
 
+        $prodCart = [];
+
+        foreach($session->get('cart',[]) as $slug => $qty){
+            $product = $this->productRepository->findOneBy([
+                'slug' => $slug
+            ]);
+
+            // Si jamais dans la session il y a un produit qui a ete supprimer de la BDD
+            if(!$product){
+                continue;
+            }
+            $prodCart[] = new CartProd($product, $qty);
+        }
+        return $prodCart;
     }
 
     public function decrement($slug, $session){
@@ -123,19 +133,14 @@ class CartService{
         if(!array_key_exists($slug, $cart)){
             return;
         }
-
         // Si le produit est a 1 alors il faut le supprimer
         if($cart[$slug] === 1){
             $this->remove($slug, $session);
             return;
         }
-
         // Soit le produit est a plus de 1, il faut le decrementer
         $cart[$slug]--;
 
         $session->set('cart', $cart);
-
-
     }
-    
 }

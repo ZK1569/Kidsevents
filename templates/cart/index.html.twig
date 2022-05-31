@@ -26,30 +26,30 @@
                     <tr>
                         <th>Produit</th>
                         <th>Prix</th>
-                        <th>Quantité</th>
                         <th>Supplements</th>
                         <th>Prix</th>
-                        <th></th>
+                        <th>Quantité</th>
                         <th>annuler</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in items %}
-                        <tr>
-                            <td>{{item.product.name | upper}}</td>
-                            <td>{{item.product.price}}</td>
-                            <td>Unique</td>
-                            <td><a href="{{url('cart_delete', {'slug': item.product.slug})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
-                            <td>{{item.supplement.name | upper}}</td>
-                            <td>{{item.supplement.price}}</td>
-                            <td>
-                            {# ReturnToCart=true c'est pour eviter de repasser sur la page produit #}                        
-                            <a href="{{url("cart_add_supplement", {'slug':item.supplement.slug})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
-                            {{item.qty}}
-                            <a href="{{url("cart_decrement_supplement", {'slug':item.supplement.slug})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                        {% for sup in supplements %}
+                            {% for prod in products %}
+                            <tr>
+                                <td>{{prod.product.name | upper}}</td>
+                                <td>{{prod.product.price}}</td>
+                                <td>{{sup.supplement.name | upper}}</td>
+                                <td>{{sup.supplement.price}}</td>
+                                <td>
+                                {# ReturnToCart=true c'est pour eviter de repasser sur la page produit #}                        
+                                <a href="{{url("cart_add_supplement", {'slug':sup.supplement.slug})}}?returnToCart=true" class="btn btn-sm btn-primary"><i class="bx bx-plus"></i></a>
+                                {{sup.qty}}
+                                <a href="{{url("cart_decrement_supplement", {'slug':sup.supplement.slug})}}" class="btn btn-sm btn-primary"><i class="bx bx-minus"></i></a>
+                                </td>
+                                <td><a href="{{url('cart_delete', {'slug': prod.product.slug})}}" class='btn btn-sm btn-danger'><i class="bx bx-trash"></i></a></td>
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
@@ -60,7 +60,7 @@
             </table>
 
 
-            <h2>Confirmer votre command en remplissant ce formulaire </h2>
+            <h2>Confirmez votre commande en remplissant ce formulaire </h2>
 
             {{form_start(confirmationForm, {'action': url("purchase_confirm")})}}
 

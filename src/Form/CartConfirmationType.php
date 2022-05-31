@@ -19,34 +19,34 @@ class CartConfirmationType extends AbstractType
             ->add('fullName', TextType::class, [
                 'label' => "Nom complet",
                 'attr' => [
-                    'placeholder' => 'Nom complet pour la livraison'
+                    'placeholder' => 'Nom du réservant'
+                ]
+            ])
+            ->add('PhoneNbr', TextType::class, [
+                'label' => "Numéro de téléphone",
+                'attr' => [
+                    'placeholder' => 'Numéro à contacter'
                 ]
             ])
             ->add('address', TextareaType::class, [
                 'label' => 'Adresse complète',
                 'attr' => [
-                    'placeholder' => 'Adresse complète pour la livraison'
+                    'placeholder' => 'Adresse de la réservation'
                 ]
             ])
             ->add('postalCode', TextType::class, [
                 'label' => 'Code postal',
                 'attr' => [
-                    'placeholder' => 'Code postal pour le livraison'
-                ] 
-            ])
-            ->add('city', TextType::class, [
-                'label' => 'Ville', 
-                'attr' => [
-                    'placeholder' => 'Ville pour la livraison'
+                    'placeholder' => 'Ex: 75000'
                 ]
             ])
             ->add('reserve_for', DateType::class, [
-                'label' => 'Date de reservation',
+                'label' => 'Date de reservation :',
                 'format' => 'dd/MM/yyyy',
                 'data' => new \DateTime("now"),
             ])
             ->add('reserve_time', TimeType::class, [
-                'label' => 'Heure de reservation',
+                'label' => 'Heure de reservation :',
             ])
         ;
     }
