@@ -12,14 +12,14 @@
             <div class="overlay">
                 {# --- type --------- #}
                 <div class="type">
-                    <a href="{{url ('supplement_show', {'slug':supplement.slug} )}}" class="check-btn">Consulter le supplément</a>
+                    <a href="{{url ('cart_add_supplement', {'slug':supplement.slug} )}}" class="check-btn">ajouter au panier</a>
                 </div>
             </div>
         </div>
 
         {# --- detail-box ------ #}
         <div class="detail-box">
-            {{supplement.name | upper}}
+            <a href="{{url ('supplement_show', {'slug':supplement.slug} )}}" class="name">{{supplement.name | upper}}</a>
             {# --- price ---------#}
             <a href="#" class="price">{{supplement.price}} €</a>
 

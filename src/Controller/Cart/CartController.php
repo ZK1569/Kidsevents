@@ -47,7 +47,9 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_show');
         }
 
-        return $this->redirectToRoute('homepage.index');
+        return $this->redirectToRoute('product_show', [
+            'slug' => $product->getSlug()
+        ]);
     }
 
     #[Route('cart/add/supplement/{slug}', name:"cart_add_supplement")]
@@ -72,7 +74,9 @@ class CartController extends AbstractController
             return $this->redirectToRoute('cart_show');
         }
 
-        return $this->redirectToRoute('homepage.index');
+        $route = $request->headers->get('referer');
+
+    return $this->redirect($route);
     }
 
     
@@ -134,8 +138,4 @@ class CartController extends AbstractController
         return $this->redirectToRoute('cart_show');
 
     }
-
-    
-
-
 }

@@ -5,6 +5,7 @@ namespace App\Controller\Theme;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\SupplementRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,7 @@ class ThemeController extends AbstractController
 
     // To show the product
     #[Route('theme/{slug}', name: 'product_show', priority:-1 )]
-    public function show($slug, ProductRepository $productRepository): Response
+    public function show($slug, ProductRepository $productRepository, SupplementRepository $supplementRepository): Response
     {
         // Foud the product is the DataBase
         $product = $productRepository->findOneBy([
@@ -35,9 +36,9 @@ class ThemeController extends AbstractController
 
         return $this->render('theme/show.html.twig', [
             'product' => $product,
+            "sup" => $supplementRepository->findAll(),
         ]);
     }
-
 
     // TO edit the product
     #[Route('/admin/product/{id}/edit', name:'product_edit')]

@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('css/Homepage/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/Theme/productStyle.css')}}">
+	<link rel="stylesheet" href="{{asset('css/Homepage/tiny-slider.css')}}">
+	<link rel="stylesheet" href="{{asset('css/Homepage/sliderhometheme.css')}}">
 {% endblock %}
 
 {% block title %}Kids Events {{product.name}}{% endblock %}
@@ -62,5 +65,18 @@
             <p class="description"><u>Description</u> :  {{product.shortDescription}}</p>
         </div>
     
-    
+		<section class="activite">
+		<h1>Nos Supplements</h1>
+		<div class="row my-slider-sup">
+			{% for supplement in sup %}
+				{% include "shared/_supplement.html.twig" %}
+			{% endfor %}
+		</div>
+	</section>
+
+{% endblock %}
+
+
+{% block javascripts %}
+	<script src="{{asset ('JS/Homepage/slider_sup.js')}}"></script>
 {% endblock %}

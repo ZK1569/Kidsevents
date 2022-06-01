@@ -51,18 +51,6 @@
             {% endfor %}
 		</div>
 	</section>
-
-	{# --- List des Supplement possible ------------ #}
-	<section class="activite">
-		<h1>Nos Supplements</h1>
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, repudiandae?</p>
-		
-		<div class="row my-slider-sup">
-			{% for supplement in sup %}
-				{% include "shared/_supplement.html.twig" %}
-			{% endfor %}
-		</div>
-	</section>
 	
 {% endblock %}
 
@@ -75,5 +63,4 @@
 {% block javascripts %}
 	<script src="{{ asset('JS/Homepage/tiny-slider.js') }}"></script>
 	<script src="{{asset ('JS/Homepage/slider_theme.js')}}"></script>
-	<script src="{{asset ('JS/Homepage/slider_sup.js')}}"></script>
 {% endblock %}
